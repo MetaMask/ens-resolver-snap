@@ -1,12 +1,11 @@
-# TypeScript Example Snap
+# ENS resolver Snap
 
-This snap demonstrates how to develop a snap with TypeScript. It is a simple
-snap that displays a confirmation dialog when the `hello` JSON-RPC method is
-called.
+This Snap demonstrates forward and reverse name resolution based on ENS.
 
-## Testing
+## Contributing
 
-The snap comes with some basic tests, to demonstrate how to write tests for
-snaps. To test the snap, run `yarn test` in this directory. This will use
-[`@metamask/snaps-jest`](https://github.com/MetaMask/snaps/tree/main/packages/snaps-jest)
-to run the tests in `src/index.test.ts`.
+You have to specify an `INFURA_PROJECT_ID` environment variable to build or test the project.
+It might work without one, but it will be severely slow.
+
+After installing the snap in [MetaMask Flask](https://metamask.io/flask/), use any address input field to type in an ENS
+name.

@@ -1,27 +1,26 @@
 {
   "version": "0.1.0",
-  "description": "An example Snap written in TypeScript.",
-  "proposedName": "TypeScript Example",
+  "description": "A Snap used for ENS name resolution",
+  "proposedName": "Ethereum Name Service resolver",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/template-snap-monorepo.git"
+    "url": "https://github.com/MetaMask/ens-resolver-snap.git"
   },
   "source": {
-    "shasum": "TwVBeJ/PL4uARBEFZmgJukYd3XWyTbilkOPhtdg+GvU=",
+    "shasum": "CV59Ej5jBOSHvRT1EU3MA9rDVgK3x6FoB5W3H8r9HHY=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
-        "packageName": "snap",
+        "packageName": "ens-resolver-snap",
+        "iconPath": "ens-icon.svg",
         "registry": "https://registry.npmjs.org/"
       }
     }
   },
   "initialPermissions": {
-    "snap_dialog": {},
-    "endowment:rpc": {
-      "dapps": true,
-      "snaps": false
-    }
+    "endowment:name-lookup": {},
+    "endowment:network-access": {},
+    "endowment:ethereum-provider": {}
   },
   "manifestVersion": "0.1"
 }

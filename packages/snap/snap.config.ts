@@ -1,5 +1,8 @@
 import type { SnapConfig } from '@metamask/snaps-cli';
+import * as dotenv from 'dotenv';
 import { resolve } from 'path';
+
+dotenv.config();
 
 const config: SnapConfig = {
   bundler: 'webpack',
@@ -9,6 +12,10 @@ const config: SnapConfig = {
   },
   polyfills: {
     buffer: true,
+  },
+  environment: {
+    // eslint-disable-next-line n/no-process-env
+    INFURA_PROJECT_ID: process.env.INFURA_PROJECT_ID,
   },
 };
 

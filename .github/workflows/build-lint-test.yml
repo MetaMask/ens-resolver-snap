@@ -8,9 +8,9 @@ jobs:
     name: Prepare
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           cache: 'yarn'
@@ -23,16 +23,17 @@ jobs:
     needs:
       - prepare
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           cache: 'yarn'
       - run: yarn --immutable --immutable-cache
+      - run: echo "INFURA_PROJECT_ID=${{ secrets.INFURA_PROJECT_ID }}" > packages/snap/.env
       - run: yarn build
       - name: Cache snap build
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./packages/snap/dist
           key: snap-${{ runner.os }}-${{ github.sha }}
@@ -50,9 +51,9 @@ jobs:
     needs:
       - prepare
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           cache: 'yarn'
@@ -73,20 +74,21 @@ jobs:
       - prepare
       - build
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           cache: 'yarn'
       - name: Restore snap build cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./packages/snap/dist
           key: snap-${{ runner.os }}-${{ github.sha }}
       - run: yarn install --immutable
+      - run: echo "INFURA_PROJECT_ID=${{ secrets.INFURA_PROJECT_ID }}" > packages/snap/.env
       - name: Run e2e tests
-        run: yarn workspace snap run test
+        run: yarn workspace ens-resolver-snap run test
       - name: Require clean working directory
         shell: bash
         run: |
