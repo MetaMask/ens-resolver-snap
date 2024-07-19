@@ -1,0 +1,26 @@
+{
+  "version": "0.1.0",
+  "description": "A Snap used for ENS name resolution",
+  "proposedName": "Ethereum Name Service resolver",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MetaMask/ens-resolver-snap.git"
+  },
+  "source": {
+    "shasum": "7nsfT5slg4nSDJ0iTDANw9Ke5NK1C8FP0aLozhRf9ls=",
+    "location": {
+      "npm": {
+        "filePath": "dist/bundle.js",
+        "packageName": "@metamask/ens-resolver-snap",
+        "iconPath": "ens-icon.svg",
+        "registry": "https://registry.npmjs.org/"
+      }
+    }
+  },
+  "initialPermissions": {
+    "endowment:name-lookup": {},
+    "endowment:network-access": {},
+    "endowment:ethereum-provider": {}
+  },
+  "manifestVersion": "0.1"
+}
