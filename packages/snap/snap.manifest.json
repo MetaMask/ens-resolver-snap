@@ -7,11 +7,11 @@
     "url": "https://github.com/MetaMask/ens-resolver-snap.git"
   },
   "source": {
-    "shasum": "CV59Ej5jBOSHvRT1EU3MA9rDVgK3x6FoB5W3H8r9HHY=",
+    "shasum": "7nsfT5slg4nSDJ0iTDANw9Ke5NK1C8FP0aLozhRf9ls=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
-        "packageName": "ens-resolver-snap",
+        "packageName": "@metamask/ens-resolver-snap",
         "iconPath": "ens-icon.svg",
         "registry": "https://registry.npmjs.org/"
       }

@@ -1,5 +1,5 @@
 {
-  "name": "ens-resolver-snap",
+  "name": "@metamask/ens-resolver-snap",
   "version": "0.1.0",
   "description": "A MetaMask Snap used for Ethereum Name Service (ENS) resolution",
   "repository": {
