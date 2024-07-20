@@ -278,7 +278,7 @@ describe('onNameLookup', () => {
     it('returns null if unknown domain', async () => {
       const request = {
         chainId: `eip155:${chainId}`,
-        domain: 'example.com',
+        domain: 'unknown.domain',
       };
 
       // @ts-expect-error - Testing invalid request.

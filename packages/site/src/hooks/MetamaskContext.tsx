@@ -27,7 +27,6 @@ export const MetaMaskContext = createContext<MetaMaskContextType>({
 
 /**
  * MetaMask context provider to handle MetaMask and snap status.
- *
  * @param props - React Props.
  * @param props.children - React component to be wrapped by the Provider.
  * @returns JSX.
@@ -66,7 +65,6 @@ export const MetaMaskProvider = ({ children }: { children: ReactNode }) => {
 
 /**
  * Utility hook to consume the MetaMask context.
- *
  * @returns The MetaMask context.
  */
 export function useMetaMaskContext() {
