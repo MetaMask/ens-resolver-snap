@@ -13,9 +13,17 @@
     "images/",
     "snap.manifest.json"
   ],
+  "exports": {
+    "./package.json": "./package.json",
+    "./snap.manifest.json": "./snap.manifest.json",
+    "./images/icon.svg": "./images/icon.svg",
+    "./dist/bundle.js": "./dist/bundle.js",
+    "./dist/preinstalled-snap.json": "./dist/preinstalled-snap.json"
+  },
   "scripts": {
     "allow-scripts": "yarn workspace root allow-scripts",
-    "build": "mm-snap build",
+    "build": "mm-snap build && yarn build:types",
+    "build:types": "tsc",
     "build:clean": "yarn clean && yarn build",
     "clean": "rimraf dist",
     "lint": "yarn lint:eslint && yarn lint:misc --check",

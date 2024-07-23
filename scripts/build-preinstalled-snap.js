@@ -24,7 +24,7 @@ function readFileContents(filePath) {
 
 // Paths to the files
 const bundlePath = require.resolve('../packages/snap/dist/bundle.js');
-const iconPath = require.resolve('../packages/snap/images/ens-icon.svg');
+const iconPath = require.resolve('../packages/snap/images/icon.svg');
 const manifestPath = require.resolve('../packages/snap/snap.manifest.json');
 
 // File Contents

@@ -77,4 +77,5 @@ node_modules/
 .pnp.*
 
 .idea/
-
+**/snap.config.d.ts
+**/snap.config.d.ts.map
