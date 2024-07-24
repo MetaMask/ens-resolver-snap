@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import { useMetaMaskContext } from './MetamaskContext';
-import { useRequest } from './useRequest';
 import { defaultSnapOrigin } from '../config';
 import type { GetSnapsResponse } from '../types';
+import { useMetaMaskContext } from './MetamaskContext';
+import { useRequest } from './useRequest';
 
 /**
  * A Hook to retrieve useful data from MetaMask.
