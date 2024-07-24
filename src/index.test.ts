@@ -1,4 +1,4 @@
-import { describe, it } from '@jest/globals';
+import { afterAll, beforeAll, describe, expect, it } from '@jest/globals';
 import * as dotenv from 'dotenv';
 import type { Eip1193Provider, JsonRpcProvider } from 'ethers';
 import { InfuraProvider } from 'ethers';
@@ -7,7 +7,7 @@ import { InfuraProvider } from 'ethers';
 dotenv.config();
 
 // eslint-disable-next-line
-import { onNameLookup } from '.';
+import { onNameLookup } from './index';
 
 class WrapProvider implements Eip1193Provider {
   provider: JsonRpcProvider;

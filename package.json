@@ -1,40 +1,57 @@
 {
-  "name": "root",
-  "private": true,
-  "description": "",
-  "homepage": "https://github.com/MetaMask/ens-resolver-snap#readme",
-  "bugs": {
-    "url": "https://github.com/MetaMask/ens-resolver-snap/issues"
-  },
+  "name": "@metamask/ens-resolver-snap",
+  "version": "0.1.0",
+  "description": "A MetaMask Snap used for Ethereum Name Service (ENS) resolution",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MetaMask/ens-resolver-snap.git"
   },
   "license": "Apache-2.0",
-  "author": "",
-  "workspaces": [
-    "packages/*"
+  "exports": {
+    "./package.json": "./package.json",
+    "./snap.manifest.json": "./snap.manifest.json",
+    "./images/icon.svg": "./images/icon.svg",
+    "./dist/bundle.js": "./dist/bundle.js",
+    "./dist/preinstalled-snap.json": "./dist/preinstalled-snap.json"
+  },
+  "main": "dist/bundle.js",
+  "files": [
+    "dist/",
+    "images/",
+    "snap.manifest.json"
   ],
   "scripts": {
-    "build": "yarn workspaces foreach --parallel --topological --verbose run build && yarn build-preinstalled-snap",
+    "build": "yarn build:snap && yarn build:types && yarn build-preinstalled-snap",
     "build-preinstalled-snap": "node scripts/build-preinstalled-snap.js",
+    "build:clean": "yarn clean && yarn build",
+    "build:snap": "mm-snap build",
+    "build:types": "tsc",
+    "clean": "rimraf ./dist",
     "lint": "yarn lint:eslint && yarn lint:misc --check",
-    "lint:eslint": "eslint . --cache --ext js,jsx,ts,tsx",
+    "lint:eslint": "eslint ./ --cache --ext js,ts",
     "lint:fix": "yarn lint:eslint --fix && yarn lint:misc --write",
-    "lint:misc": "prettier '**/*.json' '**/*.md' '!**/CHANGELOG.md' '**/*.yml' --ignore-path .gitignore",
-    "start": "yarn workspaces foreach --parallel --interlaced --verbose run start",
-    "test": "yarn workspace @metamask/ens-resolver-snap run test"
+    "lint:misc": "prettier '**/*.json' '**/*.md' '!CHANGELOG.md' --ignore-path .gitignore",
+    "prepublishOnly": "mm-snap manifest",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@metamask/snaps-sdk": "^6.0.0",
+    "ethers": "^6.13.1"
   },
   "devDependencies": {
+    "@jest/globals": "29.5.0",
     "@lavamoat/allow-scripts": "3.0.4",
     "@lavamoat/preinstall-always-fail": "2.0.0",
+    "@metamask/auto-changelog": "3.4.4",
     "@metamask/eslint-config": "12.2.0",
     "@metamask/eslint-config-jest": "12.1.0",
     "@metamask/eslint-config-nodejs": "12.1.0",
     "@metamask/eslint-config-typescript": "12.1.0",
-    "@metamask/snaps-controllers": "9.2.0",
+    "@metamask/snaps-cli": "6.2.1",
+    "@metamask/snaps-jest": "8.2.0",
     "@typescript-eslint/eslint-plugin": "5.42.1",
     "@typescript-eslint/parser": "5.42.1",
+    "dotenv": "16.4.5",
     "eslint": "8.57.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
@@ -43,19 +60,27 @@
     "eslint-plugin-n": "17.9.0",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-promise": "6.4.0",
+    "jest": "29.5.0",
     "prettier": "2.8.8",
     "prettier-plugin-packagejson": "2.5.1",
+    "rimraf": "3.0.2",
     "sharp": "0.32.6",
+    "ts-jest": "29.1.0",
     "typescript": "4.8.4"
   },
   "packageManager": "yarn@3.2.1",
   "engines": {
     "node": ">=18.6.0"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "lavamoat": {
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false,
-      "sharp": true
+      "sharp": true,
+      "@metamask/snaps-cli>@swc/core": false
     }
   }
 }
