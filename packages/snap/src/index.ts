@@ -17,7 +17,6 @@ const PROTOCOL_NAME = 'Ethereum Name Service';
 /**
  * Tries to determine if an address is currently a contract.
  * When unknown it returns `true`.
- *
  * @param provider - AbstractProvider - the provider for the network.
  * @param address - AddressLike - the address to check.
  * @returns Promise<boolean> - true if the given address has bytecode set.
