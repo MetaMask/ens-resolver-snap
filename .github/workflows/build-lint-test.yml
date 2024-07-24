@@ -30,12 +30,12 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
       - run: yarn --immutable --immutable-cache
-      - run: echo "INFURA_PROJECT_ID=${{ secrets.INFURA_PROJECT_ID }}" > packages/snap/.env
+      - run: echo "INFURA_PROJECT_ID=${{ secrets.INFURA_PROJECT_ID }}" > ./.env
       - run: yarn build
       - name: Cache snap build
         uses: actions/cache@v4
         with:
-          path: ./packages/snap/dist
+          path: ./dist
           key: snap-${{ runner.os }}-${{ github.sha }}
       - name: Require clean working directory
         shell: bash
@@ -83,10 +83,10 @@ jobs:
       - name: Restore snap build cache
         uses: actions/cache@v4
         with:
-          path: ./packages/snap/dist
+          path: ./dist
           key: snap-${{ runner.os }}-${{ github.sha }}
       - run: yarn install --immutable
-      - run: echo "INFURA_PROJECT_ID=${{ secrets.INFURA_PROJECT_ID }}" > packages/snap/.env
+      - run: echo "INFURA_PROJECT_ID=${{ secrets.INFURA_PROJECT_ID }}" > .env
       - name: Run e2e tests
         run: yarn test
       - name: Require clean working directory
