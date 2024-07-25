@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- feat: implement ENS resolver snap (based on snap monorepo
+- Implement ENS resolver snap (based on snap monorepo
   template) ([#1](https://github.com/MetaMask/ens-resolver-snap/pull/1))
 
 [Unreleased]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.0...HEAD
