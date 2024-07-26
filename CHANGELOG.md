@@ -9,15 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0]
 
-### Uncategorized
+### Added
 
-- chore: Revert "0.1.0 (#26) and fix repository URL" ([#26](https://github.com/MetaMask/ens-resolver-snap/pull/26))
-- 0.1.0 ([#26](https://github.com/MetaMask/ens-resolver-snap/pull/26))
-- chore: add prerelease changelog.md ([#25](https://github.com/MetaMask/ens-resolver-snap/pull/25))
-- chore(ci): prepare workflows for release publishing ([#16](https://github.com/MetaMask/ens-resolver-snap/pull/16))
-- chore(ci): add script to build preinstalled snap ([#15](https://github.com/MetaMask/ens-resolver-snap/pull/15))
-- feat: implement ENS resolver snap ([#1](https://github.com/MetaMask/ens-resolver-snap/pull/1))
-- Initial commit
+- Implement ENS resolver snap (based on snap monorepo
+  template) ([#1](https://github.com/MetaMask/ens-resolver-snap/pull/1))
 
 [Unreleased]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/MetaMask/ens-resolver-snap/releases/tag/v0.1.0
