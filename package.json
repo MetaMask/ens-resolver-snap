@@ -1,10 +1,10 @@
 {
   "name": "@metamask/ens-resolver-snap",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "A MetaMask Snap used for Ethereum Name Service (ENS) resolution",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MetaMask/ens-resolver-snap.git"
+    "url": "https://github.com/MetaMask/ens-resolver-snap.git"
   },
   "license": "Apache-2.0",
   "exports": {
