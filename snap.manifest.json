@@ -4,10 +4,10 @@
   "proposedName": "Ethereum Name Service resolver",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MetaMask/ens-resolver-snap.git"
+    "url": "https://github.com/MetaMask/ens-resolver-snap.git"
   },
   "source": {
-    "shasum": "RwBmScE3hAybJzMOcqQ6PjcDooloYLkIfHuSiyGjyPA=",
+    "shasum": "xF88okQ60o3HZVgv/10Cfvqk31jjMAWgkANUFr4yCSQ=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
