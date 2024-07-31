@@ -9,9 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.1]
 
-### Uncategorized
+### Changed
 
-- chore(deps): bump the @metamask/snaps-sdk version ([#29](https://github.com/MetaMask/ens-resolver-snap/pull/29))
+- Update a dependency that had a security vulnerability
+  warning ([#29](https://github.com/MetaMask/ens-resolver-snap/pull/29))
 
 ## [0.1.0]
 
@@ -21,5 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   template) ([#1](https://github.com/MetaMask/ens-resolver-snap/pull/1))
 
 [Unreleased]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.1...HEAD
+
 [0.1.1]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.0...v0.1.1
+
 [0.1.0]: https://github.com/MetaMask/ens-resolver-snap/releases/tag/v0.1.0
