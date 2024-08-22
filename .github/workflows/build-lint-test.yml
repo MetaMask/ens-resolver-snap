@@ -30,8 +30,9 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
       - run: yarn --immutable --immutable-cache
-      - run: echo "INFURA_PROJECT_ID=${{ secrets.INFURA_PROJECT_ID }}" > ./.env
       - run: yarn build
+        env:
+          INFURA_PROJECT_ID: ${{ secrets.INFURA_PROJECT_ID }}
       - name: Cache snap build
         uses: actions/cache@v4
         with:
@@ -86,9 +87,10 @@ jobs:
           path: ./dist
           key: snap-${{ runner.os }}-${{ github.sha }}
       - run: yarn install --immutable
-      - run: echo "INFURA_PROJECT_ID=${{ secrets.INFURA_PROJECT_ID }}" > .env
       - name: Run e2e tests
         run: yarn test
+        env:
+           INFURA_PROJECT_ID: ${{ secrets.INFURA_PROJECT_ID }}
       - name: Require clean working directory
         shell: bash
         run: |
