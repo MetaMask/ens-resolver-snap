@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.2]
 
-### Changed
+### Fixed
 
-- fix: ethereum provider connection for non mainnet ([#38](https://github.com/MetaMask/ens-resolver-snap/pull/38))
+- Fix Ethereum provider connection for non-mainnet ([#38](https://github.com/MetaMask/ens-resolver-snap/pull/38))
 
 ## [0.1.1]
 
