@@ -8,9 +8,6 @@ import type {
 import type { AbstractProvider, AddressLike } from 'ethers';
 import { BrowserProvider, InfuraProvider } from 'ethers';
 
-// eslint-disable-next-line no-restricted-globals
-const infuraProjectId = process.env.INFURA_PROJECT_ID;
-
 const ENS_SUPPORTED_CHAINS = ['eip155:1', 'eip155:11155111', 'eip155:17000'];
 const PROTOCOL_NAME = 'Ethereum Name Service';
 
@@ -46,6 +43,11 @@ export const onNameLookup: OnNameLookupHandler = async (
   if (ENS_SUPPORTED_CHAINS.includes(chainId)) {
     provider = new BrowserProvider(ethereum, chainIdInt);
   } else {
+    // eslint-disable-next-line no-restricted-globals
+    const infuraProjectId = process.env.INFURA_PROJECT_ID;
+    if (!infuraProjectId) {
+      throw new Error('INFURA_PROJECT_ID is missing.');
+    }
     provider = new InfuraProvider(1, infuraProjectId);
   }
 
