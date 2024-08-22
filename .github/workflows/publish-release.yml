@@ -7,6 +7,8 @@ on:
         required: true
       SLACK_WEBHOOK_URL:
         required: true
+      INFURA_PROJECT_ID:
+        required: true
 
 jobs:
   publish-release:
@@ -38,6 +40,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: yarn --immutable
+      - run: echo "INFURA_PROJECT_ID=${{ secrets.INFURA_PROJECT_ID }}" > .env
       - run: yarn build
 
   publish-npm-dry-run:
