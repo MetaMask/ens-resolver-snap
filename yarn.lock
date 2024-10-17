@@ -2132,15 +2132,15 @@ __metadata:
   linkType: hard
 
 "@metamask/eth-json-rpc-provider@npm:^4.0.0":
-  version: 4.1.2
-  resolution: "@metamask/eth-json-rpc-provider@npm:4.1.2"
+  version: 4.1.5
+  resolution: "@metamask/eth-json-rpc-provider@npm:4.1.5"
   dependencies:
-    "@metamask/json-rpc-engine": ^9.0.2
-    "@metamask/rpc-errors": ^6.3.1
+    "@metamask/json-rpc-engine": ^10.0.0
+    "@metamask/rpc-errors": ^7.0.0
     "@metamask/safe-event-emitter": ^3.0.0
     "@metamask/utils": ^9.1.0
     uuid: ^8.3.2
-  checksum: d7092ce64fc185796a0be3f339da1718e280159f06e8fdf29a002b4573abd0903219a527a4c5890952d5e66dbe56b5c3e53d42aa8a4bbc25acbdf6efadcff6ea
+  checksum: ec291c0814e24d47412f1a5899ff0a0a5383489cf9a165b825a580a636bd0f0f89e270a8ad5f5d63a726aae4836ed32048f914855df685f18d0790616d51f954
   languageName: node
   linkType: hard
 
@@ -2177,6 +2177,17 @@ __metadata:
   peerDependencies:
     "@babel/runtime": ^7.0.0
   checksum: 9eb4f894b24c43b7b14a9180cebb0603d4a07c1af583b0c4a36d58f24e202831bbdf98888666b4a3ea2e4d4a9fef4c6cc55d09379870b20b080ea5582764e622
+  languageName: node
+  linkType: hard
+
+"@metamask/json-rpc-engine@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "@metamask/json-rpc-engine@npm:10.0.0"
+  dependencies:
+    "@metamask/rpc-errors": ^7.0.0
+    "@metamask/safe-event-emitter": ^3.0.0
+    "@metamask/utils": ^9.1.0
+  checksum: 0ed1cabe62774d7140c7e27b4485d0a536a95194628ab90f6543cdd7e0a80b80e2789929900c161728b25fb29782d048a18c981d728516e643f4b3be4d971663
   languageName: node
   linkType: hard
 
@@ -2328,6 +2339,16 @@ __metadata:
     "@metamask/utils": ^9.0.0
     fast-safe-stringify: ^2.0.6
   checksum: 8761f5c0161cb3b342abd3ccccbd7b792f36a987e1f22c3f89b1bd29f72a2e35a2c91b58164fdd9dc3e5b67157500dcbdb5d04245117c14310c34cf42f7b8463
+  languageName: node
+  linkType: hard
+
+"@metamask/rpc-errors@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@metamask/rpc-errors@npm:7.0.0"
+  dependencies:
+    "@metamask/utils": ^9.0.0
+    fast-safe-stringify: ^2.0.6
+  checksum: 07984f473e9e7c0f57abee53de8da282d113b3e293453858f44b58a43706486b36dfbe2f46de4a92324797a53730f410d32c382f138ef015e250efacb7de2081
   languageName: node
   linkType: hard
 
