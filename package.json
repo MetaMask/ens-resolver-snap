@@ -27,10 +27,13 @@
     "build:snap": "mm-snap build",
     "build:types": "tsc",
     "clean": "rimraf ./dist",
-    "lint": "yarn lint:eslint && yarn lint:misc --check",
+    "lint": "yarn lint:eslint && yarn lint:constraints && yarn lint:misc --check && yarn lint:dependencies --check && yarn lint:changelog",
+    "lint:changelog": "auto-changelog validate --prettier",
+    "lint:constraints": "yarn constraints",
+    "lint:dependencies": "depcheck && yarn dedupe",
     "lint:eslint": "eslint ./ --cache --ext js,ts",
-    "lint:fix": "yarn lint:eslint --fix && yarn lint:misc --write",
-    "lint:misc": "prettier '**/*.json' '**/*.md' '!CHANGELOG.md' --ignore-path .gitignore",
+    "lint:fix": "yarn lint:eslint --fix && yarn lint:constraints --fix && yarn lint:misc --write && yarn lint:dependencies && yarn lint:changelog",
+    "lint:misc": "prettier '**/*.json' '**/*.md' '**/*.yml' '!.yarnrc.yml' --ignore-path .gitignore --no-error-on-unmatched-pattern",
     "prepublishOnly": "mm-snap manifest",
     "test": "jest"
   },
@@ -51,6 +54,7 @@
     "@metamask/snaps-jest": "8.3.0",
     "@typescript-eslint/eslint-plugin": "5.42.1",
     "@typescript-eslint/parser": "5.42.1",
+    "depcheck": "^1.4.3",
     "dotenv": "16.4.5",
     "eslint": "8.57.0",
     "eslint-config-prettier": "8.5.0",
@@ -64,11 +68,10 @@
     "prettier": "2.8.8",
     "prettier-plugin-packagejson": "2.5.1",
     "rimraf": "3.0.2",
-    "sharp": "0.32.6",
     "ts-jest": "29.1.0",
     "typescript": "4.8.4"
   },
-  "packageManager": "yarn@3.2.1",
+  "packageManager": "yarn@4.1.1",
   "engines": {
     "node": ">=18.6.0"
   },
