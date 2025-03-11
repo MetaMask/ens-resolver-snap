@@ -10,7 +10,10 @@ jobs:
     name: Check workflows
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout and setup environment
+        uses: MetaMask/action-checkout-and-setup@v1
+        with:
+          is-high-risk-environment: false
       - name: Download actionlint
         id: download-actionlint
         run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/7fdc9630cc360ea1a469eed64ac6d78caeda1234/scripts/download-actionlint.bash) 1.6.23
@@ -34,7 +37,8 @@ jobs:
   build-lint-test:
     name: Build, lint, and test
     uses: ./.github/workflows/build-lint-test.yml
-    secrets: inherit
+    secrets:
+      INFURA_PROJECT_ID: ${{ secrets.INFURA_PROJECT_ID }}
 
   all-jobs-completed:
     name: All jobs completed
@@ -79,9 +83,9 @@ jobs:
         id: is-release
 
   publish-release:
-    name: Publish release
     needs: is-release
     if: needs.is-release.outputs.IS_RELEASE == 'true'
+    name: Publish release
     permissions:
       contents: write
     uses: ./.github/workflows/publish-release.yml
