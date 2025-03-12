@@ -36,6 +36,7 @@ jobs:
           include-hidden-files: true
           path: |
             ./dist
+            ./snap.manifest.json
             ./node_modules/.yarn-state.yml
 
   publish-npm-dry-run:
