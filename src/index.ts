@@ -46,7 +46,7 @@ export const onNameLookup: OnNameLookupHandler = async (
   // Ensure that we are on the correct chain, falling back to mainnet
   await ethereum.request({
     method: 'wallet_switchEthereumChain',
-    params: [{ chainId: `0x${chainIdInt.toString(16)}` }],
+    params: [{ chainId: `0x${providerChainId.toString(16)}` }],
   });
 
   const provider = new BrowserProvider(ethereum, providerChainId);
