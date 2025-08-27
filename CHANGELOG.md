@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3]
+
+### Uncategorized
+
+- fix: Switch chain before making requests ([#62](https://github.com/MetaMask/ens-resolver-snap/pull/62))
+- fix: Move dependencies to dev dependencies ([#63](https://github.com/MetaMask/ens-resolver-snap/pull/63))
+- chore(ci): Remove release publishing caches ([#60](https://github.com/MetaMask/ens-resolver-snap/pull/60))
+- chore: add workflow_dispatch to security-code-scanner ([#59](https://github.com/MetaMask/ens-resolver-snap/pull/59))
+- chore(deps): bump snaps-sdk to 6.9.0 ([#56](https://github.com/MetaMask/ens-resolver-snap/pull/56))
+- chore: update Metamask/action-is-release and use env var instead of .env ([#40](https://github.com/MetaMask/ens-resolver-snap/pull/40))
+
 ## [0.1.2]
 
 ### Fixed
@@ -27,10 +38,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implement ENS resolver snap (based on snap monorepo
   template) ([#1](https://github.com/MetaMask/ens-resolver-snap/pull/1))
 
-[Unreleased]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.2...HEAD
-
+[Unreleased]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.1...v0.1.2
-
 [0.1.1]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.0...v0.1.1
-
 [0.1.0]: https://github.com/MetaMask/ens-resolver-snap/releases/tag/v0.1.0
