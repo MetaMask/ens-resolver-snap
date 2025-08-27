@@ -9,14 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.3]
 
-### Uncategorized
+### Fixed
 
-- fix: Switch chain before making requests ([#62](https://github.com/MetaMask/ens-resolver-snap/pull/62))
-- fix: Move dependencies to dev dependencies ([#63](https://github.com/MetaMask/ens-resolver-snap/pull/63))
-- chore(ci): Remove release publishing caches ([#60](https://github.com/MetaMask/ens-resolver-snap/pull/60))
-- chore: add workflow_dispatch to security-code-scanner ([#59](https://github.com/MetaMask/ens-resolver-snap/pull/59))
-- chore(deps): bump snaps-sdk to 6.9.0 ([#56](https://github.com/MetaMask/ens-resolver-snap/pull/56))
-- chore: update Metamask/action-is-release and use env var instead of .env ([#40](https://github.com/MetaMask/ens-resolver-snap/pull/40))
+- Switch chain before making requests ([#62](https://github.com/MetaMask/ens-resolver-snap/pull/62))
+- Move dependencies to dev dependencies ([#63](https://github.com/MetaMask/ens-resolver-snap/pull/63))
 
 ## [0.1.2]
 
