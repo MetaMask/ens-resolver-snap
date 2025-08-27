@@ -6,7 +6,7 @@ import type {
   OnNameLookupHandler,
 } from '@metamask/snaps-sdk';
 import type { AbstractProvider, AddressLike } from 'ethers';
-import { BrowserProvider, InfuraProvider } from 'ethers';
+import { BrowserProvider } from 'ethers';
 
 const ENS_SUPPORTED_CHAINS = ['eip155:1', 'eip155:11155111', 'eip155:17000'];
 const PROTOCOL_NAME = 'Ethereum Name Service';
@@ -38,18 +38,20 @@ export const onNameLookup: OnNameLookupHandler = async (
 ): Promise<AddressLookupResult | DomainLookupResult | null> => {
   const { chainId, address, domain } = request;
 
-  let provider;
   const chainIdInt = parseInt(chainId.split(':')[1] ?? '1', 10);
-  if (ENS_SUPPORTED_CHAINS.includes(chainId)) {
-    provider = new BrowserProvider(ethereum, chainIdInt);
-  } else {
-    // eslint-disable-next-line no-restricted-globals
-    const infuraProjectId = process.env.INFURA_PROJECT_ID;
-    if (!infuraProjectId) {
-      throw new Error('INFURA_PROJECT_ID is missing.');
-    }
-    provider = new InfuraProvider(1, infuraProjectId);
-  }
+  const providerChainId = ENS_SUPPORTED_CHAINS.includes(chainId)
+    ? chainIdInt
+    : 1;
+
+  // Ensure that we are on the correct chain, falling back to mainnet
+  await ethereum.request({
+    method: 'wallet_switchEthereumChain',
+    params: [{ chainId: `0x${providerChainId.toString(16)}` }],
+  });
+
+  const provider = new BrowserProvider(ethereum, providerChainId, {
+    staticNetwork: true,
+  });
 
   if (domain) {
     const ensResolver = await provider.getResolver(domain);

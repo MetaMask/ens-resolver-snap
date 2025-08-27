@@ -20,6 +20,9 @@ class WrapProvider implements Eip1193Provider {
     method: string;
     params?: any[] | Record<string, any>;
   }): Promise<any> {
+    if (request.method === 'wallet_switchEthereumChain') {
+      return null;
+    }
     return await this.provider.send(request.method, request.params ?? []);
   }
 }
@@ -32,6 +35,22 @@ const infuraProjectId = process.env.INFURA_PROJECT_ID;
 describe('onNameLookup', () => {
   describe('with domain', () => {
     describe('on L2', () => {
+      beforeAll(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        // eslint-disable-next-line no-restricted-globals
+        global.ethereum = new WrapProvider(
+          new InfuraProvider(1, infuraProjectId),
+        );
+      });
+
+      afterAll(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        // eslint-disable-next-line no-restricted-globals
+        global.ethereum = undefined;
+      });
+
       it('resolves EOA address from mainnet', async () => {
         const chainId = 59144;
 
