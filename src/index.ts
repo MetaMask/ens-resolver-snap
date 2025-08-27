@@ -49,7 +49,7 @@ export const onNameLookup: OnNameLookupHandler = async (
     params: [{ chainId: `0x${providerChainId.toString(16)}` }],
   });
 
-  const provider = new BrowserProvider(ethereum, providerChainId);
+  const provider = new BrowserProvider(ethereum, providerChainId, { staticNetwork: true });
 
   if (domain) {
     const ensResolver = await provider.getResolver(domain);
