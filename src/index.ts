@@ -39,16 +39,15 @@ export const onNameLookup: OnNameLookupHandler = async (
   const { chainId, address, domain } = request;
 
   const chainIdInt = parseInt(chainId.split(':')[1] ?? '1', 10);
-  let providerChainId = chainIdInt;
+  const providerChainId = ENS_SUPPORTED_CHAINS.includes(chainId)
+    ? chainIdInt
+    : 1;
 
-  if (!ENS_SUPPORTED_CHAINS.includes(chainId)) {
-    // Resolve on mainnet if ENS is not supported on the current chain
-    await ethereum.request({
-      method: 'wallet_switchEthereumChain',
-      params: [{ chainId: '0x1' }],
-    });
-    providerChainId = 1;
-  }
+  // Ensure that we are on the correct chain, falling back to mainnet
+  await ethereum.request({
+    method: 'wallet_switchEthereumChain',
+    params: [{ chainId: `0x${chainIdInt.toString(16)}` }],
+  });
 
   const provider = new BrowserProvider(ethereum, providerChainId);
 
