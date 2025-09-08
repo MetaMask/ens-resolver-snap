@@ -18,7 +18,9 @@
     }
   },
   "initialPermissions": {
-    "endowment:name-lookup": {},
+    "endowment:name-lookup": {
+      "chains": ["eip155:1", "eip155:11155111", "eip155:17000"]
+    },
     "endowment:network-access": {},
     "endowment:ethereum-provider": {}
   },
