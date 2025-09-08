@@ -1,5 +1,5 @@
 {
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A Snap used for ENS name resolution",
   "proposedName": "Ethereum Name Service resolver",
   "repository": {
