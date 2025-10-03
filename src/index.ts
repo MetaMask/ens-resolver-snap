@@ -1,6 +1,7 @@
 import type { OnNameLookupHandler } from '@metamask/snaps-sdk';
 import { parseCaipChainId } from '@metamask/utils';
 
+import { CAIP_CHAIN_ID_TO_SLIP_44_COIN_TYPE } from './constants';
 import { resolveAddress, resolveDomain } from './resolvers';
 import { configureProvider, isSupportedChain } from './utils';
 
@@ -10,7 +11,9 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
 
   const chainIsSupported = isSupportedChain(chainId);
 
-  const decimalChainId = parseInt(reference ?? '1', 10);
+  const decimalChainId = parseInt(reference, 10);
+
+  const coinType = CAIP_CHAIN_ID_TO_SLIP_44_COIN_TYPE[chainId];
 
   const provider = await configureProvider(
     chainIsSupported ? decimalChainId : 1,
@@ -21,6 +24,7 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
       provider,
       namespace,
       domain,
+      coinType,
       chainIsSupported ? undefined : decimalChainId,
     );
 

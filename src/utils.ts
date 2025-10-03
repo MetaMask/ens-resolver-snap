@@ -7,6 +7,7 @@ import {
 } from 'ethers';
 
 import { ENS_SUPPORTED_CHAINS } from './constants';
+import { NonEvmCoinPlugin } from './plugins';
 /**
  * Tries to determine if an address is currently a contract.
  * @param provider - The provider for the network.
@@ -49,5 +50,11 @@ export async function configureProvider(chainId: number) {
     params: [{ chainId: numberToHex(chainId) }],
   });
 
-  return new BrowserProvider(ethereum, chainId, { staticNetwork: true });
+  const provider = new BrowserProvider(ethereum, chainId, {
+    staticNetwork: true,
+  });
+
+  provider.attachPlugin(new NonEvmCoinPlugin());
+
+  return provider;
 }

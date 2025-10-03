@@ -2,7 +2,7 @@ import type { CaipNamespace } from '@metamask/utils';
 import { KnownCaipNamespace } from '@metamask/utils';
 import type { BrowserProvider } from 'ethers';
 
-import { CAIP_CHAIN_TO_BIP44_COIN_TYPE, PROTOCOL_NAME } from './constants';
+import { PROTOCOL_NAME } from './constants';
 import { addressIsContract } from './utils';
 
 /**
@@ -10,6 +10,7 @@ import { addressIsContract } from './utils';
  * @param provider - The browser provider.
  * @param namespace - The CAIP namespace.
  * @param domain - The ENS domain to resolve.
+ * @param coinType - The SLIP-44 coin type (default is 60 for Ethereum).
  * @param chainId - The chain ID in decimal format.
  * @returns The resolved address or null if not found.
  */
@@ -17,6 +18,7 @@ export async function resolveDomain(
   provider: BrowserProvider,
   namespace: CaipNamespace,
   domain: string,
+  coinType?: number,
   chainId?: number,
 ) {
   const ensResolver = await provider.getResolver(domain);
@@ -53,9 +55,12 @@ export async function resolveDomain(
     };
   }
 
-  const resolvedAddress = await ensResolver.getAddress(
-    CAIP_CHAIN_TO_BIP44_COIN_TYPE[namespace],
-  );
+  // Prevent resolving unsupported coin types.
+  if (coinType === undefined) {
+    return null;
+  }
+
+  const resolvedAddress = await ensResolver.getAddress(coinType);
 
   if (!resolvedAddress) {
     return null;
