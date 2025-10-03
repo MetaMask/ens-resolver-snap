@@ -7,7 +7,7 @@
     "url": "https://github.com/MetaMask/ens-resolver-snap.git"
   },
   "source": {
-    "shasum": "2e9i1E2ADjYXvxdIJ8NAQka0nXq9e5efCGVsvRk3gyo=",
+    "shasum": "VfGn2fGYyk40wFUXn3Va6wgKqIgZsRSBjrskeToZ22Q=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -18,9 +18,7 @@
     }
   },
   "initialPermissions": {
-    "endowment:name-lookup": {
-      "chains": ["eip155:1", "eip155:11155111", "eip155:17000"]
-    },
+    "endowment:name-lookup": {},
     "endowment:network-access": {},
     "endowment:ethereum-provider": {}
   },
