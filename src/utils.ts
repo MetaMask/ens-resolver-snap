@@ -1,9 +1,12 @@
+import type { CaipChainId } from '@metamask/utils';
 import { numberToHex } from '@metamask/utils';
 import {
   BrowserProvider,
   type AbstractProvider,
   type AddressLike,
 } from 'ethers';
+
+import { ENS_SUPPORTED_CHAINS } from './constants';
 /**
  * Tries to determine if an address is currently a contract.
  * @param provider - The provider for the network.
@@ -23,6 +26,15 @@ export async function addressIsContract(
     );
     return true; // err on the side of caution
   }
+}
+
+/**
+ * Checks if the given chain ID is supported by ENS.
+ * @param chainId - The chain ID in CAIP format.
+ * @returns True if the chain is supported, false otherwise.
+ */
+export function isSupportedChain(chainId: CaipChainId) {
+  return ENS_SUPPORTED_CHAINS.includes(chainId);
 }
 
 /**

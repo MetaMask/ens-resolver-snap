@@ -226,6 +226,35 @@ describe('onNameLookup', () => {
         });
       });
     });
+
+    describe('on non-evm chains', () => {
+      beforeAll(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        // eslint-disable-next-line no-restricted-globals
+        global.ethereum = new WrapProvider(
+          new InfuraProvider(1, infuraProjectId),
+        );
+      });
+
+      afterAll(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        // eslint-disable-next-line no-restricted-globals
+        global.ethereum = undefined;
+      });
+
+      it('resolves address on bitcoin', async () => {
+        const result = await onNameLookup({
+          domain: 'gregskril.eth',
+          chainId: 'bip122:000000000019d6689c085ae165831e93',
+        });
+
+        expect(result?.resolvedAddresses?.[0].resolvedAddress).toMatch(
+          /^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$/u,
+        );
+      });
+    });
   });
 
   describe('with address', () => {

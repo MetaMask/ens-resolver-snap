@@ -43,11 +43,6 @@ export async function resolveDomain(
       !mainnetAddress ||
       (await addressIsContract(provider, mainnetAddress))
     ) {
-      console.log(
-        'Resolved mainnet address is a contract or could not be determined. Returning nothing.',
-        domain,
-        mainnetAddress,
-      );
       return null;
     }
 

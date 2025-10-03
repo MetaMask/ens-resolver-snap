@@ -17,4 +17,5 @@ export const ENS_SUPPORTED_CHAINS = [
  */
 export const CAIP_CHAIN_TO_BIP44_COIN_TYPE: Record<string, number> = {
   bip122: 0, // Bitcoin
+  solana: 501, // Solana
 };
