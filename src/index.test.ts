@@ -55,7 +55,7 @@ describe('onNameLookup', () => {
         const chainId = 59144;
 
         const result = await onNameLookup({
-          domain: 'vitalik.eth',
+          domain: 'nick.eth',
           chainId: `eip155:${chainId}`,
         });
 
@@ -67,7 +67,7 @@ describe('onNameLookup', () => {
             {
               resolvedAddress: expect.any(String),
               protocol: '⚠️ Ethereum Name Service (mainnet)',
-              domainName: 'vitalik.eth',
+              domainName: 'nick.eth',
             },
           ],
         });
