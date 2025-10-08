@@ -1,4 +1,5 @@
 import { jest } from '@jest/globals';
+import type { Json } from '@metamask/utils';
 
 /**
  * Type definition for a request/response mock.
@@ -6,9 +7,9 @@ import { jest } from '@jest/globals';
 export type RequestMock = {
   request: {
     method: string;
-    params?: unknown;
+    params?: Json;
   };
-  response: unknown;
+  response: Json;
 };
 
 /**

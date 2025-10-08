@@ -68,7 +68,7 @@ export async function resolveDomain(
 
   return {
     resolvedAddress,
-    protocol: `⚠️ ${PROTOCOL_NAME} (${(await provider.getNetwork()).name})`,
+    protocol: PROTOCOL_NAME,
     domainName: domain,
   };
 }

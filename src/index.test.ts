@@ -247,7 +247,7 @@ describe('onNameLookup', () => {
           resolvedAddresses: [
             {
               resolvedAddress: '1RicMooMWxqKczuRCa5D2dnJaUEn9ZJyn',
-              protocol: '⚠️ Ethereum Name Service (mainnet)',
+              protocol: 'Ethereum Name Service',
               domainName: 'ricmoo.eth',
             },
           ],
@@ -271,7 +271,7 @@ describe('onNameLookup', () => {
           resolvedAddresses: [
             {
               resolvedAddress: '39XDnriEDTWF9axxNxBg7fRfFAthFVU5K8cYEes3BrZx',
-              protocol: '⚠️ Ethereum Name Service (mainnet)',
+              protocol: 'Ethereum Name Service',
               domainName: 'solscan.eth',
             },
           ],
@@ -295,7 +295,7 @@ describe('onNameLookup', () => {
           resolvedAddresses: [
             {
               resolvedAddress: 'TNa2QgNxjzBhNPzPBgLFqKC8VjGG8yMufg',
-              protocol: '⚠️ Ethereum Name Service (mainnet)',
+              protocol: 'Ethereum Name Service',
               domainName: 'trontest.eth',
             },
           ],

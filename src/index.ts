@@ -1,5 +1,5 @@
 import type { OnNameLookupHandler } from '@metamask/snaps-sdk';
-import { parseCaipChainId } from '@metamask/utils';
+import { KnownCaipNamespace, parseCaipChainId } from '@metamask/utils';
 
 import { CAIP_CHAIN_ID_TO_SLIP_44_COIN_TYPE } from './constants';
 import { resolveAddress, resolveDomain } from './resolvers';
@@ -16,13 +16,18 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
 
   const chainIsSupported = isSupportedChain(chainId);
 
-  const decimalChainId = parseInt(reference, 10);
+  // Only parse the chain ID if the namespace is EIP-155.
+  // This avoids trying to parse non-numeric chain IDs.
+  const decimalChainId =
+    namespace === KnownCaipNamespace.Eip155
+      ? parseInt(reference, 10)
+      : undefined;
 
   const coinType = CAIP_CHAIN_ID_TO_SLIP_44_COIN_TYPE[chainId];
 
   try {
     const provider = await configureProvider(
-      chainIsSupported ? decimalChainId : 1,
+      chainIsSupported && decimalChainId ? decimalChainId : 1,
     );
 
     if (domain) {
@@ -53,7 +58,7 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
 
     return null;
   } catch (error) {
-    console.error('[ENS Snap] Error during name lookup:', error);
+    console.error('Error during name lookup:', error);
     return null;
   }
 };
