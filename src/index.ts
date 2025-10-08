@@ -5,6 +5,11 @@ import { CAIP_CHAIN_ID_TO_SLIP_44_COIN_TYPE } from './constants';
 import { resolveAddress, resolveDomain } from './resolvers';
 import { configureProvider, isSupportedChain } from './utils';
 
+/**
+ * Handler for the `onNameLookup` method.
+ * @param request - The name lookup request.
+ * @returns The name lookup response or null if no resolution is found.
+ */
 export const onNameLookup: OnNameLookupHandler = async (request) => {
   const { chainId, address, domain } = request;
   const { namespace, reference } = parseCaipChainId(chainId);
