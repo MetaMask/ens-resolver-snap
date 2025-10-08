@@ -20,35 +20,40 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
 
   const coinType = CAIP_CHAIN_ID_TO_SLIP_44_COIN_TYPE[chainId];
 
-  const provider = await configureProvider(
-    chainIsSupported ? decimalChainId : 1,
-  );
-
-  if (domain) {
-    const resolution = await resolveDomain(
-      provider,
-      namespace,
-      domain,
-      coinType,
-      chainIsSupported ? undefined : decimalChainId,
+  try {
+    const provider = await configureProvider(
+      chainIsSupported ? decimalChainId : 1,
     );
 
-    if (resolution) {
-      return {
-        resolvedAddresses: [resolution],
-      };
+    if (domain) {
+      const resolution = await resolveDomain(
+        provider,
+        namespace,
+        domain,
+        coinType,
+        chainIsSupported ? undefined : decimalChainId,
+      );
+
+      if (resolution) {
+        return {
+          resolvedAddresses: [resolution],
+        };
+      }
     }
-  }
 
-  if (address) {
-    const resolution = await resolveAddress(provider, address);
+    if (address) {
+      const resolution = await resolveAddress(provider, address);
 
-    if (resolution) {
-      return {
-        resolvedDomains: [resolution],
-      };
+      if (resolution) {
+        return {
+          resolvedDomains: [resolution],
+        };
+      }
     }
-  }
 
-  return null;
+    return null;
+  } catch (error) {
+    console.error('[ENS Snap] Error during name lookup:', error);
+    return null;
+  }
 };

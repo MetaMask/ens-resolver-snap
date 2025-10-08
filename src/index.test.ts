@@ -158,6 +158,17 @@ describe('onNameLookup', () => {
 
         expect(result).toBeNull();
       });
+
+      it('returns null if an error occurs', async () => {
+        setupEthereumRequestMock();
+
+        const result = await onNameLookup({
+          chainId: `eip155:1`,
+          domain: 'mnhsu.xyz',
+        });
+
+        expect(result).toBeNull();
+      });
     });
 
     describe('on sepolia', () => {

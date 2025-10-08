@@ -16,7 +16,7 @@ export type RequestMock = {
  * @param requestMocks - An array of request/response mocks.
  * @returns A Jest spy on the `ethereum.request` method.
  */
-export const setupEthereumRequestMock = (requestMocks: RequestMock[]) => {
+export const setupEthereumRequestMock = (requestMocks?: RequestMock[]) => {
   // @ts-expect-error - mocked global
   // eslint-disable-next-line no-restricted-globals
   global.ethereum = {
@@ -26,7 +26,7 @@ export const setupEthereumRequestMock = (requestMocks: RequestMock[]) => {
     }) => {
       const { method, params } = request;
 
-      const mock = requestMocks.find(
+      const mock = requestMocks?.find(
         (item) =>
           item.request.method === method &&
           JSON.stringify(item.request.params) === JSON.stringify(params),
