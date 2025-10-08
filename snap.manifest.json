@@ -7,7 +7,7 @@
     "url": "https://github.com/MetaMask/ens-resolver-snap.git"
   },
   "source": {
-    "shasum": "eWByI1wPzBg2qCiwMkvWsknpbc7meVQEW1BczjJVc6Q=",
+    "shasum": "59AJj8SaLHAcFZPPbSdSql1pmWvFZW8iEbMc6QaI/s8=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -22,5 +22,6 @@
     "endowment:network-access": {},
     "endowment:ethereum-provider": {}
   },
+  "platformVersion": "10.0.0",
   "manifestVersion": "0.1"
 }

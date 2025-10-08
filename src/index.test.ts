@@ -1,71 +1,47 @@
-import { afterAll, beforeAll, describe, expect, it } from '@jest/globals';
-import * as dotenv from 'dotenv';
-import type { Eip1193Provider, JsonRpcProvider } from 'ethers';
-import { InfuraProvider } from 'ethers';
+import { afterEach, describe, expect, it } from '@jest/globals';
 
-// load ENV before snap
-dotenv.config();
-
-// eslint-disable-next-line
-import { onNameLookup } from './index';
-
-class WrapProvider implements Eip1193Provider {
-  provider: JsonRpcProvider;
-
-  constructor(provider: JsonRpcProvider) {
-    this.provider = provider;
-  }
-
-  async request(request: {
-    method: string;
-    params?: any[] | Record<string, any>;
-  }): Promise<any> {
-    if (request.method === 'wallet_switchEthereumChain') {
-      return null;
-    }
-    return await this.provider.send(request.method, request.params ?? []);
-  }
-}
-
-// TODO: use mocks instead of live networks!!!!!
-
-// eslint-disable-next-line no-restricted-globals
-const infuraProjectId = process.env.INFURA_PROJECT_ID;
+import { onNameLookup } from '.';
+import {
+  bitcoinAddressMock,
+  l2AddressOnL2Mock,
+  mainnetAddressMock,
+  mainnetAddressOnL2Mock,
+  mainnetContractMock,
+  mainnetContractOnL2Mock,
+  mainnetDomainMock,
+  resetEthereumRequestMock,
+  sepoliaAddressMock,
+  sepoliaContractMock,
+  setupEthereumRequestMock,
+  solanaAddressMock,
+  tronAddressMock,
+  unknownDomainMock,
+} from './test/mocks';
 
 describe('onNameLookup', () => {
-  describe('with domain', () => {
-    describe('on L2', () => {
-      beforeAll(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line no-restricted-globals
-        global.ethereum = new WrapProvider(
-          new InfuraProvider(1, infuraProjectId),
-        );
+  describe('domain resolution', () => {
+    describe('on layer 2', () => {
+      afterEach(() => {
+        resetEthereumRequestMock();
       });
 
-      afterAll(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line no-restricted-globals
-        global.ethereum = undefined;
-      });
-
-      it('resolves EOA address from mainnet', async () => {
-        const chainId = 59144;
+      it('resolves an EOA address from mainnet', async () => {
+        const requestSpy = setupEthereumRequestMock(mainnetAddressOnL2Mock);
 
         const result = await onNameLookup({
           domain: 'nick.eth',
-          chainId: `eip155:${chainId}`,
+          chainId: `eip155:59114`,
         });
 
-        expect(result?.resolvedAddresses?.[0].resolvedAddress).toMatch(
-          /^0x.*$/u,
-        );
+        expect(requestSpy).toHaveBeenNthCalledWith(1, {
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x1' }],
+        });
+
         expect(result).toStrictEqual({
           resolvedAddresses: [
             {
-              resolvedAddress: expect.any(String),
+              resolvedAddress: '0xb8c2C29ee19D8307cb7255e1Cd9CbDE883A267d5',
               protocol: '⚠️ Ethereum Name Service (mainnet)',
               domainName: 'nick.eth',
             },
@@ -73,21 +49,23 @@ describe('onNameLookup', () => {
         });
       });
 
-      it('resolves network specific address on L2', async () => {
-        const chainId = 8453;
+      it('resolves a network specific address on L2', async () => {
+        const requestSpy = setupEthereumRequestMock(l2AddressOnL2Mock);
 
         const result = await onNameLookup({
           domain: 'luc.eth',
-          chainId: `eip155:${chainId}`,
+          chainId: `eip155:8453`,
         });
 
-        expect(result?.resolvedAddresses?.[0].resolvedAddress).toMatch(
-          /^0x.*$/u,
-        );
+        expect(requestSpy).toHaveBeenNthCalledWith(1, {
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x1' }],
+        });
+
         expect(result).toStrictEqual({
           resolvedAddresses: [
             {
-              resolvedAddress: expect.any(String),
+              resolvedAddress: '0x225f137127d9067788314bc7fcc1f36746a3c3B5',
               protocol: 'Ethereum Name Service',
               domainName: 'luc.eth',
             },
@@ -95,12 +73,17 @@ describe('onNameLookup', () => {
         });
       });
 
-      it('returns null when on L2 and mainnet address is a contract', async () => {
-        const chainId = 59144;
+      it('does not resolve a mainnet contract address on a layer 2', async () => {
+        const requestSpy = setupEthereumRequestMock(mainnetContractOnL2Mock);
 
         const result = await onNameLookup({
           domain: '1inch.eth',
-          chainId: `eip155:${chainId}`,
+          chainId: `eip155:59144`,
+        });
+
+        expect(requestSpy).toHaveBeenNthCalledWith(1, {
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x1' }],
         });
 
         expect(result).toBeNull();
@@ -108,37 +91,27 @@ describe('onNameLookup', () => {
     });
 
     describe('on mainnet', () => {
-      const chainId = 1;
-
-      beforeAll(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line no-restricted-globals
-        global.ethereum = new WrapProvider(
-          new InfuraProvider(chainId, infuraProjectId),
-        );
+      afterEach(() => {
+        resetEthereumRequestMock();
       });
 
-      afterAll(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line no-restricted-globals
-        global.ethereum = undefined;
-      });
+      it('resolves an EOA address on mainnet', async () => {
+        const requestSpy = setupEthereumRequestMock(mainnetAddressMock);
 
-      it('resolves EOA address on mainnet', async () => {
         const result = await onNameLookup({
           domain: 'luc.eth',
-          chainId: `eip155:${chainId}`,
+          chainId: `eip155:1`,
         });
 
-        expect(result?.resolvedAddresses?.[0].resolvedAddress).toMatch(
-          /^0x.*$/u,
-        );
+        expect(requestSpy).toHaveBeenNthCalledWith(1, {
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x1' }],
+        });
+
         expect(result).toStrictEqual({
           resolvedAddresses: [
             {
-              resolvedAddress: expect.any(String),
+              resolvedAddress: '0x225f137127d9067788314bc7fcc1f36746a3c3B5',
               protocol: 'Ethereum Name Service',
               domainName: 'luc.eth',
             },
@@ -146,59 +119,69 @@ describe('onNameLookup', () => {
         });
       });
 
-      it('resolves contract address on mainnet', async () => {
+      it('resolves a contract address on mainnet', async () => {
+        const requestSpy = setupEthereumRequestMock(mainnetContractMock);
+
         const result = await onNameLookup({
           domain: '1inch.eth',
-          chainId: `eip155:${chainId}`,
+          chainId: `eip155:1`,
         });
 
-        expect(result?.resolvedAddresses?.[0].resolvedAddress).toMatch(
-          /^0x.*$/u,
-        );
+        expect(requestSpy).toHaveBeenNthCalledWith(1, {
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x1' }],
+        });
+
         expect(result).toStrictEqual({
           resolvedAddresses: [
             {
-              resolvedAddress: expect.any(String),
+              resolvedAddress: '0x1111111254EEB25477B68fb85Ed929f73A960582',
               protocol: 'Ethereum Name Service',
               domainName: '1inch.eth',
             },
           ],
         });
+      });
+
+      it('returns null for an unknown domain', async () => {
+        const requestSpy = setupEthereumRequestMock(unknownDomainMock);
+
+        const result = await onNameLookup({
+          chainId: `eip155:1`,
+          domain: 'unknown.domain',
+        });
+
+        expect(requestSpy).toHaveBeenNthCalledWith(1, {
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x1' }],
+        });
+
+        expect(result).toBeNull();
       });
     });
 
     describe('on sepolia', () => {
-      const chainId = 11155111;
-
-      beforeAll(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line no-restricted-globals
-        global.ethereum = new WrapProvider(
-          new InfuraProvider(chainId, infuraProjectId),
-        );
+      afterEach(() => {
+        resetEthereumRequestMock();
       });
 
-      afterAll(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line no-restricted-globals
-        global.ethereum = undefined;
-      });
+      it('resolves an EOA address', async () => {
+        const requestSpy = setupEthereumRequestMock(sepoliaAddressMock);
 
-      it('resolves EOA address on sepolia', async () => {
         const result = await onNameLookup({
           domain: 'luc.eth',
-          chainId: `eip155:${chainId}`,
+          chainId: `eip155:11155111`,
         });
 
-        expect(result?.resolvedAddresses?.[0].resolvedAddress).toMatch(
-          /^0x.*$/u,
-        );
+        expect(requestSpy).toHaveBeenNthCalledWith(1, {
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0xaa36a7' }],
+        });
+
         expect(result).toStrictEqual({
           resolvedAddresses: [
             {
-              resolvedAddress: expect.any(String),
+              resolvedAddress: '0x225f137127d9067788314bc7fcc1f36746a3c3B5',
               protocol: 'Ethereum Name Service',
               domainName: 'luc.eth',
             },
@@ -206,19 +189,23 @@ describe('onNameLookup', () => {
         });
       });
 
-      it('resolves contract address on sepolia', async () => {
+      it('resolves a contract address', async () => {
+        const requestSpy = setupEthereumRequestMock(sepoliaContractMock);
+
         const result = await onNameLookup({
           domain: '1inch.eth',
-          chainId: `eip155:${chainId}`,
+          chainId: `eip155:11155111`,
         });
 
-        expect(result?.resolvedAddresses?.[0].resolvedAddress).toMatch(
-          /^0x.*$/u,
-        );
+        expect(requestSpy).toHaveBeenNthCalledWith(1, {
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0xaa36a7' }],
+        });
+
         expect(result).toStrictEqual({
           resolvedAddresses: [
             {
-              resolvedAddress: expect.any(String),
+              resolvedAddress: '0x03d5003bf0e79C5F5223588F347ebA39AfbC3818',
               protocol: 'Ethereum Name Service',
               domainName: '1inch.eth',
             },
@@ -227,60 +214,102 @@ describe('onNameLookup', () => {
       });
     });
 
-    describe('on non-evm chains', () => {
-      beforeAll(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line no-restricted-globals
-        global.ethereum = new WrapProvider(
-          new InfuraProvider(1, infuraProjectId),
-        );
+    describe('on non-evm networks', () => {
+      afterEach(() => {
+        resetEthereumRequestMock();
       });
 
-      afterAll(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line no-restricted-globals
-        global.ethereum = undefined;
-      });
+      it('resolves an address on bitcoin mainnet', async () => {
+        const requestSpy = setupEthereumRequestMock(bitcoinAddressMock);
 
-      it('resolves address on bitcoin', async () => {
         const result = await onNameLookup({
           domain: 'ricmoo.eth',
-          chainId: 'bip122:000000000019d6689c085ae165831e93',
+          chainId: `bip122:000000000019d6689c085ae165831e93`,
         });
 
-        expect(result?.resolvedAddresses?.[0].resolvedAddress).toMatch(
-          /^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$/u,
-        );
+        expect(requestSpy).toHaveBeenNthCalledWith(1, {
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x1' }],
+        });
+
+        expect(result).toStrictEqual({
+          resolvedAddresses: [
+            {
+              resolvedAddress: '1RicMooMWxqKczuRCa5D2dnJaUEn9ZJyn',
+              protocol: '⚠️ Ethereum Name Service (mainnet)',
+              domainName: 'ricmoo.eth',
+            },
+          ],
+        });
+      });
+
+      it('resolves an address on solana mainnet', async () => {
+        const requestSpy = setupEthereumRequestMock(solanaAddressMock);
+
+        const result = await onNameLookup({
+          domain: 'solscan.eth',
+          chainId: `solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp`,
+        });
+
+        expect(requestSpy).toHaveBeenNthCalledWith(1, {
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x1' }],
+        });
+
+        expect(result).toStrictEqual({
+          resolvedAddresses: [
+            {
+              resolvedAddress: '39XDnriEDTWF9axxNxBg7fRfFAthFVU5K8cYEes3BrZx',
+              protocol: '⚠️ Ethereum Name Service (mainnet)',
+              domainName: 'solscan.eth',
+            },
+          ],
+        });
+      });
+
+      it('resolves an address on tron mainnet', async () => {
+        const requestSpy = setupEthereumRequestMock(tronAddressMock);
+
+        const result = await onNameLookup({
+          domain: 'trontest.eth',
+          chainId: `tron:728126428`,
+        });
+
+        expect(requestSpy).toHaveBeenNthCalledWith(1, {
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x1' }],
+        });
+
+        expect(result).toStrictEqual({
+          resolvedAddresses: [
+            {
+              resolvedAddress: 'TNa2QgNxjzBhNPzPBgLFqKC8VjGG8yMufg',
+              protocol: '⚠️ Ethereum Name Service (mainnet)',
+              domainName: 'trontest.eth',
+            },
+          ],
+        });
       });
     });
   });
 
-  describe('with address', () => {
+  describe('address resolution', () => {
     describe('on mainnet', () => {
-      const chainId = 1;
-
-      beforeAll(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line no-restricted-globals
-        global.ethereum = new WrapProvider(
-          new InfuraProvider(chainId, infuraProjectId),
-        );
-      });
-
-      afterAll(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line no-restricted-globals
-        global.ethereum = undefined;
+      afterEach(() => {
+        resetEthereumRequestMock();
       });
 
       it('resolves domain on mainnet', async () => {
+        const requestSpy = setupEthereumRequestMock(mainnetDomainMock);
+
         const result = await onNameLookup({
           address: '0x225f137127d9067788314bc7fcc1f36746a3c3B5',
-          chainId: `eip155:${chainId}`,
+          chainId: `eip155:1`,
+        });
+
+        expect(requestSpy).toHaveBeenNthCalledWith(1, {
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x1' }],
         });
 
         expect(result).toStrictEqual({
@@ -292,45 +321,6 @@ describe('onNameLookup', () => {
           ],
         });
       });
-    });
-  });
-
-  describe('with nothing', () => {
-    const chainId = 11155111;
-
-    beforeAll(() => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      // eslint-disable-next-line no-restricted-globals
-      global.ethereum = new WrapProvider(
-        new InfuraProvider(chainId, infuraProjectId),
-      );
-    });
-
-    afterAll(() => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      // eslint-disable-next-line no-restricted-globals
-      global.ethereum = undefined;
-    });
-
-    it('returns null if no domain or address', async () => {
-      const request = {
-        chainId: `eip155:${chainId}`,
-      };
-
-      // @ts-expect-error - Testing invalid request.
-      expect(await onNameLookup(request)).toBeNull();
-    });
-
-    it('returns null if unknown domain', async () => {
-      const request = {
-        chainId: `eip155:${chainId}`,
-        domain: 'unknown.domain',
-      };
-
-      // @ts-expect-error - Testing invalid request.
-      expect(await onNameLookup(request)).toBeNull();
     });
   });
 });
