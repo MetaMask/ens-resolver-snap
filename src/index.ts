@@ -46,7 +46,7 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
       }
     }
 
-    if (address) {
+    if (address && namespace === KnownCaipNamespace.Eip155) {
       const resolution = await resolveAddress(provider, address);
 
       if (resolution) {

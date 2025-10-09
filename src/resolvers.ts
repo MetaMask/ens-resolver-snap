@@ -12,6 +12,7 @@ import { addressIsContract } from './utils';
  * @param domain - The ENS domain to resolve.
  * @param coinType - The SLIP-44 coin type (default is 60 for Ethereum).
  * @param chainId - The chain ID in decimal format.
+ * If not provided, it assumes that the request is a natively supported ENS chain.
  * @returns The resolved address or null if not found.
  */
 export async function resolveDomain(
@@ -37,6 +38,11 @@ export async function resolveDomain(
         protocol: PROTOCOL_NAME,
         domainName: domain,
       };
+    }
+
+    // Prevent resolving twice on mainnet.
+    if (!chainId) {
+      return null;
     }
 
     const mainnetAddress = await ensResolver.getAddress();

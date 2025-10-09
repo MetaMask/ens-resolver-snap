@@ -333,5 +333,22 @@ describe('onNameLookup', () => {
         });
       });
     });
+
+    describe('on unsupported chain', () => {
+      afterEach(() => {
+        resetEthereumRequestMock();
+      });
+
+      it('returns null for unsupported chain', async () => {
+        setupEthereumRequestMock();
+
+        const result = await onNameLookup({
+          address: '39XDnriEDTWF9axxNxBg7fRfFAthFVU5K8cYEes3BrZx',
+          chainId: 'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp',
+        });
+
+        expect(result).toBeNull();
+      });
+    });
   });
 });
