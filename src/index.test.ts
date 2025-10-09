@@ -30,7 +30,7 @@ describe('onNameLookup', () => {
 
         const result = await onNameLookup({
           domain: 'nick.eth',
-          chainId: `eip155:59114`,
+          chainId: `eip155:59144`,
         });
 
         expect(requestSpy).toHaveBeenNthCalledWith(1, {
