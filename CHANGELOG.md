@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0]
+
+### Uncategorized
+
+- Bump Snaps deps ([#72](https://github.com/MetaMask/ens-resolver-snap/pull/72))
+- chore: Refactor ENS Snap ([#69](https://github.com/MetaMask/ens-resolver-snap/pull/69))
+- chore: Update `CODEOWNERS` ([#70](https://github.com/MetaMask/ens-resolver-snap/pull/70))
+- fix: Use a different ENS name for E2E ([#71](https://github.com/MetaMask/ens-resolver-snap/pull/71))
+
 ## [0.1.4]
 
 ### Fixed
@@ -40,7 +49,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implement ENS resolver snap (based on snap monorepo
   template) ([#1](https://github.com/MetaMask/ens-resolver-snap/pull/1))
 
-[Unreleased]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.4...HEAD
+[Unreleased]: https://github.com/MetaMask/ens-resolver-snap/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.4...v1.0.0
 [0.1.4]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.1...v0.1.2
