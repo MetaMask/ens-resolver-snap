@@ -9,13 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0]
 
+### Added
+
+- Add support for ENS resolution on non-EVM chains ([#69](https://github.com/MetaMask/ens-resolver-snap/pull/69))
+
 ### Changed
 
-- Bump Snaps deps ([#72](https://github.com/MetaMask/ens-resolver-snap/pull/72))
-- Refactor ENS Snap ([#69](https://github.com/MetaMask/ens-resolver-snap/pull/69))
-  - Add support for ENS resolution on non-evm chains
-  - Revert the `chains` caveat addition to the `name-lookup` endowment
+- Bump Snaps dependencies ([#72](https://github.com/MetaMask/ens-resolver-snap/pull/72))
 
+### Fixed
+
+- Re-enable resolution on all EVM networks ([#69](https://github.com/MetaMask/ens-resolver-snap/pull/69))
 ## [0.1.4]
 
 ### Fixed
