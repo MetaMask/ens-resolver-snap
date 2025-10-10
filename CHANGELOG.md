@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump Snaps deps ([#72](https://github.com/MetaMask/ens-resolver-snap/pull/72))
 - Refactor ENS Snap ([#69](https://github.com/MetaMask/ens-resolver-snap/pull/69))
   - Add support for ENS resolution on non-evm chains
+  - Revert the `chains` caveat addition to the `name-lookup` endowment
 
 ## [0.1.4]
 
