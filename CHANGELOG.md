@@ -9,12 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0]
 
-### Uncategorized
+### Changed
 
 - Bump Snaps deps ([#72](https://github.com/MetaMask/ens-resolver-snap/pull/72))
-- chore: Refactor ENS Snap ([#69](https://github.com/MetaMask/ens-resolver-snap/pull/69))
-- chore: Update `CODEOWNERS` ([#70](https://github.com/MetaMask/ens-resolver-snap/pull/70))
-- fix: Use a different ENS name for E2E ([#71](https://github.com/MetaMask/ens-resolver-snap/pull/71))
+- Refactor ENS Snap ([#69](https://github.com/MetaMask/ens-resolver-snap/pull/69))
+  - Add support for ENS resolution on non-evm chains
 
 ## [0.1.4]
 
