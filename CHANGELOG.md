@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Re-enable resolution on all EVM networks ([#69](https://github.com/MetaMask/ens-resolver-snap/pull/69))
+
 ## [0.1.4]
 
 ### Fixed
