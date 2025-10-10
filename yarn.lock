@@ -1205,13 +1205,13 @@ __metadata:
   linkType: hard
 
 "@metamask/json-rpc-engine@npm:^10.0.2, @metamask/json-rpc-engine@npm:^10.0.3, @metamask/json-rpc-engine@npm:^10.1.0":
-  version: 10.1.0
-  resolution: "@metamask/json-rpc-engine@npm:10.1.0"
+  version: 10.1.1
+  resolution: "@metamask/json-rpc-engine@npm:10.1.1"
   dependencies:
     "@metamask/rpc-errors": ^7.0.2
     "@metamask/safe-event-emitter": ^3.0.0
-    "@metamask/utils": ^11.8.0
-  checksum: 2fd45acb75ddc0c0b17e6854fab6a1b422ecd79ae22e55d927138447ad6272102b178b8a2c868c34851b2bbcde1908cc347f043d6bdc52beb6450e03156c4105
+    "@metamask/utils": ^11.8.1
+  checksum: 7f37dbf4a4f12a37a70b3cd23e4588c109da014134e767b5acf464de0439a567889771383f193697c48bb2a7df2fa65294ed0f58c411263978ea4e507c525d1c
   languageName: node
   linkType: hard
 
