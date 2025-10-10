@@ -989,13 +989,13 @@ __metadata:
   linkType: hard
 
 "@metamask/base-controller@npm:^8.0.0, @metamask/base-controller@npm:^8.0.1, @metamask/base-controller@npm:^8.4.0":
-  version: 8.4.0
-  resolution: "@metamask/base-controller@npm:8.4.0"
+  version: 8.4.1
+  resolution: "@metamask/base-controller@npm:8.4.1"
   dependencies:
     "@metamask/messenger": ^0.3.0
-    "@metamask/utils": ^11.8.0
+    "@metamask/utils": ^11.8.1
     immer: ^9.0.6
-  checksum: 170838507ce30cd1820fdcd0be0a11b489bd2421305b4a6a87bf04cbe6a754af9a65628522cb916ed049dd4306be79e5a33e6e1b671a2b5ad778a66f7aa20967
+  checksum: ab06f003bada6ab61754f1a5603f35b3b9ac9a1fea4e56e73d4080a2a81beb8ebd4d4406c9a1d8318b69c5f6c5bdbd518f189594a1408b97d2ba880acdfc4f8f
   languageName: node
   linkType: hard
 
