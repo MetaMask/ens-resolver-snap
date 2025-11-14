@@ -5,6 +5,9 @@ import type { CaipChainId } from '@metamask/utils';
  */
 export const PROTOCOL_NAME = 'Ethereum Name Service';
 
+export const PROTOCOL_NAME_MAINNET =
+  'Ethereum Name Service on Ethereum Mainnet';
+
 /**
  * List of supported chains for ENS resolution.
  */

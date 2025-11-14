@@ -2,7 +2,7 @@ import type { CaipNamespace } from '@metamask/utils';
 import { KnownCaipNamespace } from '@metamask/utils';
 import type { BrowserProvider } from 'ethers';
 
-import { PROTOCOL_NAME } from './constants';
+import { PROTOCOL_NAME, PROTOCOL_NAME_MAINNET } from './constants';
 import { addressIsContract } from './utils';
 
 /**
@@ -56,7 +56,7 @@ export async function resolveDomain(
 
     return {
       resolvedAddress: mainnetAddress,
-      protocol: `⚠️ ${PROTOCOL_NAME} (${(await provider.getNetwork()).name})`,
+      protocol: PROTOCOL_NAME_MAINNET,
       domainName: domain,
     };
   }
