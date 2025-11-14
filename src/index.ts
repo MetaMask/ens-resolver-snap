@@ -7,6 +7,7 @@ import { configureProvider, isSupportedChain } from './utils';
 
 /**
  * Handler for the `onNameLookup` method.
+ *
  * @param request - The name lookup request.
  * @returns The name lookup response or null if no resolution is found.
  */

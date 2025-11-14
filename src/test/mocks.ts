@@ -14,17 +14,20 @@ export type RequestMock = {
 
 /**
  * Sets up a mock for the global `ethereum.request` method.
+ *
  * @param requestMocks - An array of request/response mocks.
  * @returns A Jest spy on the `ethereum.request` method.
  */
-export const setupEthereumRequestMock = (requestMocks?: RequestMock[]) => {
+export const setupEthereumRequestMock = (
+  requestMocks?: RequestMock[],
+): jest.SpiedFunction<typeof ethereum.request> => {
   // @ts-expect-error - mocked global
   // eslint-disable-next-line no-restricted-globals
   global.ethereum = {
     request: async (request: {
       method: string;
       params?: unknown[] | Record<string, unknown>;
-    }) => {
+    }): Promise<Json> => {
       const { method, params } = request;
 
       const mock = requestMocks?.find(
@@ -47,7 +50,7 @@ export const setupEthereumRequestMock = (requestMocks?: RequestMock[]) => {
   return requestSpy;
 };
 
-export const resetEthereumRequestMock = () => {
+export const resetEthereumRequestMock = (): void => {
   // @ts-expect-error - removing mocked ethereum global
   // eslint-disable-next-line no-restricted-globals
   global.ethereum = undefined;

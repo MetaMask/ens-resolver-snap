@@ -6,6 +6,19 @@
     "@types/*",
     "prettier-plugin-packagejson",
     "ts-node",
-    "typedoc"
+    "typedoc",
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
+    "@typescript-eslint/utils",
+    "eslint-config-prettier",
+    "eslint-import-resolver-typescript",
+    "eslint-plugin-import",
+    "eslint-plugin-import-x",
+    "eslint-plugin-jest",
+    "eslint-plugin-jsdoc",
+    "eslint-plugin-n",
+    "eslint-plugin-prettier",
+    "eslint-plugin-promise",
+    "typescript-eslint"
   ]
 }

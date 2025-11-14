@@ -1,3 +1,4 @@
+import type { AddressResolution, DomainResolution } from '@metamask/snaps-sdk';
 import type { CaipNamespace } from '@metamask/utils';
 import { KnownCaipNamespace } from '@metamask/utils';
 import type { BrowserProvider } from 'ethers';
@@ -7,6 +8,7 @@ import { addressIsContract } from './utils';
 
 /**
  * Resolves the given domain to an Ethereum address.
+ *
  * @param provider - The browser provider.
  * @param namespace - The CAIP namespace.
  * @param domain - The ENS domain to resolve.
@@ -21,7 +23,7 @@ export async function resolveDomain(
   domain: string,
   coinType?: number,
   chainId?: number,
-) {
+): Promise<AddressResolution | null> {
   const ensResolver = await provider.getResolver(domain);
 
   if (!ensResolver) {
@@ -81,6 +83,7 @@ export async function resolveDomain(
 
 /**
  * Resolves the given address to an ENS domain.
+ *
  * @param provider - The browser provider.
  * @param address - The address to resolve.
  * @returns The resolved domain or null if not found.
@@ -88,7 +91,7 @@ export async function resolveDomain(
 export async function resolveAddress(
   provider: BrowserProvider,
   address: string,
-) {
+): Promise<DomainResolution | null> {
   const resolvedDomain = await provider.lookupAddress(address);
 
   if (!resolvedDomain) {
