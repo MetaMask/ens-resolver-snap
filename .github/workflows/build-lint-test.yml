@@ -42,7 +42,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: publish-release-artifacts-${{ github.sha }}
+          name: build-artifacts-${{ github.sha }}
           retention-days: 4
           include-hidden-files: true
           path: |
@@ -93,7 +93,7 @@ jobs:
       - name: Restore build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: publish-release-artifacts-${{ github.sha }}
+          name: build-artifacts-${{ github.sha }}
       - run: yarn test
       - name: Require clean working directory
         shell: bash
