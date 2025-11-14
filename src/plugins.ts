@@ -20,6 +20,7 @@ export class NonEvmCoinPlugin extends MulticoinProviderPlugin {
 
   /**
    * Checks if the plugin supports the given coin type.
+   *
    * @param coinType - The SLIP-44 coin type.
    * @returns True if the coin type is supported, false otherwise.
    */
@@ -29,6 +30,7 @@ export class NonEvmCoinPlugin extends MulticoinProviderPlugin {
 
   /**
    * Decodes the address for the given coin type.
+   *
    * @param coinType - The SLIP-44 coin type.
    * @param data - The address data in bytes-like format.
    * @returns The decoded address as a string.
