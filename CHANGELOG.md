@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.0]
 
-### Uncategorized
+### Changed
 
-- fix: Update protocol name when resolving L2 addresses on mainnet ([#77](https://github.com/MetaMask/ens-resolver-snap/pull/77))
+- Update the returned protocol name when resolving a layer 2 domain on mainnet ([#77](https://github.com/MetaMask/ens-resolver-snap/pull/77))
 
 ## [1.0.0]
 
