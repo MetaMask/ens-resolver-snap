@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0]
+
+### Uncategorized
+
+- fix: Update protocol name when resolving L2 addresses on mainnet ([#77](https://github.com/MetaMask/ens-resolver-snap/pull/77))
+
 ## [1.0.0]
 
 ### Added
@@ -54,7 +60,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implement ENS resolver snap (based on snap monorepo
   template) ([#1](https://github.com/MetaMask/ens-resolver-snap/pull/1))
 
-[Unreleased]: https://github.com/MetaMask/ens-resolver-snap/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/MetaMask/ens-resolver-snap/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/MetaMask/ens-resolver-snap/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.4...v1.0.0
 [0.1.4]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.2...v0.1.3
