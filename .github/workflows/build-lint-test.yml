@@ -79,7 +79,7 @@ jobs:
 
   test:
     name: Test
-    needs: prepare
+    needs: [prepare, build]
     runs-on: ubuntu-latest
     strategy:
       matrix:
