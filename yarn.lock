@@ -463,6 +463,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ensdomains/ethers-patch-v6@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "@ensdomains/ethers-patch-v6@npm:0.0.4"
+  peerDependencies:
+    ethers: 6
+    typescript: ^5
+  checksum: 9ddf4971415877e5dcaa565609f598e46885e69ad674acb82f6381b59ae5aa9e2f594e11d9c3cfebf9d7196dd339eb7070573356696a4b1647bdd84b6a621da9
+  languageName: node
+  linkType: hard
+
 "@es-joy/jsdoccomment@npm:~0.46.0":
   version: 0.46.0
   resolution: "@es-joy/jsdoccomment@npm:0.46.0"
@@ -1025,6 +1035,7 @@ __metadata:
   resolution: "@metamask/ens-resolver-snap@workspace:."
   dependencies:
     "@ensdomains/address-encoder": ^1.1.4
+    "@ensdomains/ethers-patch-v6": ^0.0.4
     "@jest/globals": 29.5.0
     "@lavamoat/allow-scripts": 3.0.4
     "@lavamoat/preinstall-always-fail": 2.0.0
