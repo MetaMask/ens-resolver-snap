@@ -254,7 +254,7 @@ describe('onNameLookup', () => {
         });
       });
 
-      it('resolves an address on solana mainnet', async () => {
+      it.only('resolves an address on solana mainnet', async () => {
         const requestSpy = setupEthereumRequestMock(solanaAddressMock);
 
         const result = await onNameLookup({

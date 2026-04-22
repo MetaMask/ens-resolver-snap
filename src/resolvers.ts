@@ -1,9 +1,10 @@
 import type { CaipNamespace } from '@metamask/utils';
 import { KnownCaipNamespace } from '@metamask/utils';
-import type { BrowserProvider } from 'ethers';
 
 import { PROTOCOL_NAME, PROTOCOL_NAME_MAINNET } from './constants';
 import { addressIsContract } from './utils';
+import { PublicClient, toCoinType } from 'viem';
+import { normalize } from 'viem/ens'
 
 /**
  *
@@ -37,21 +38,25 @@ type DomainResolution = {
  * @returns The resolved address or null if not found.
  */
 export async function resolveDomain(
-  provider: BrowserProvider,
+  client: any,
   namespace: CaipNamespace,
   domain: string,
   coinType?: number,
   chainId?: number,
-): Promise<DomainResolution | null> {
-  const ensResolver = await provider.getResolver(domain);
+): Promise<DomainResolution | null>  {
+  /**const ensResolver = await client.getResolver(domain);
 
   if (!ensResolver) {
     return null;
-  }
+  }**/
+
+    const normalizedDomain =  normalize(domain);
 
   if (namespace === KnownCaipNamespace.Eip155) {
     // ethers internally converts to coin type.
-    const resolvedAddress = await ensResolver.getAddress(chainId);
+    const resolvedAddress = await client.getEnsAddress({ name: normalizedDomain, coinType: chainId && toCoinType(chainId) });
+
+    console.log(resolvedAddress);
 
     if (resolvedAddress) {
       return {
@@ -66,11 +71,13 @@ export async function resolveDomain(
       return null;
     }
 
-    const mainnetAddress = await ensResolver.getAddress();
+    const mainnetAddress = await client.getEnsAddress({ name: normalizedDomain });
+    
+    console.log(mainnetAddress)
 
     if (
       !mainnetAddress ||
-      (await addressIsContract(provider, mainnetAddress))
+      (await addressIsContract(client, mainnetAddress))
     ) {
       return null;
     }
@@ -87,7 +94,7 @@ export async function resolveDomain(
     return null;
   }
 
-  const resolvedAddress = await ensResolver.getAddress(coinType);
+  const resolvedAddress = await client.getEnsAddress({ name: normalizedDomain, coinType });
 
   if (!resolvedAddress) {
     return null;
@@ -123,10 +130,10 @@ type AddressResolution = {
  * @returns The resolved domain or null if not found.
  */
 export async function resolveAddress(
-  provider: BrowserProvider,
+  client: any,
   address: string,
 ): Promise<AddressResolution | null> {
-  const resolvedDomain = await provider.lookupAddress(address);
+  const resolvedDomain = await client.getEnsName({ address });
 
   if (!resolvedDomain) {
     return null;
