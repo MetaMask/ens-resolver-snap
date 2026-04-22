@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@ensdomains/address-encoder": "^1.1.4",
+    "@ensdomains/ethers-patch-v6": "^0.0.4",
     "@jest/globals": "29.5.0",
     "@lavamoat/allow-scripts": "3.0.4",
     "@lavamoat/preinstall-always-fail": "2.0.0",
