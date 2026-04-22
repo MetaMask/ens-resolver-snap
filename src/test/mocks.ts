@@ -86,7 +86,7 @@ export const resetEthereumRequestMock = (): void => {
   global.ethereum = undefined;
 };
 
-// ENS Registry and Resolvers
+// Universal ENS resolver proxy
 const UR_PROXY = '0xeeeeeeee14d718c2b47d9923deab1335e144eeee';
 
 /**
