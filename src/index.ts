@@ -1,3 +1,5 @@
+// Patches ethers at import time to add ENSv2 support.
+// eslint-disable-next-line import/no-unassigned-import
 import '@ensdomains/ethers-patch-v6';
 import type { OnNameLookupHandler } from '@metamask/snaps-sdk';
 import { KnownCaipNamespace, parseCaipChainId } from '@metamask/utils';
