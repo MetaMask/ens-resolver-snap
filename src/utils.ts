@@ -1,11 +1,11 @@
-import type { CaipChainId } from '@metamask/utils';
+import type { CaipChainId, Hex } from '@metamask/utils';
 import { numberToHex } from '@metamask/utils';
+import type { PublicClient } from 'viem';
+import { createPublicClient, custom } from 'viem';
+import { mainnet, sepolia } from 'viem/chains';
 
 import { ENS_SUPPORTED_CHAINS } from './constants';
-import { NonEvmCoinPlugin } from './plugins';
-import { createPublicClient, custom, PublicClient } from 'viem'
-import { mainnet, sepolia } from 'viem/chains'
- 
+
 /**
  * Tries to determine if an address is currently a contract.
  *
@@ -13,10 +13,7 @@ import { mainnet, sepolia } from 'viem/chains'
  * @param address - The address to check.
  * @returns True if the given address has bytecode set or if an error occurs. False otherwise.
  */
-export async function addressIsContract(
-  provider: any,
-  address: any,
-) {
+export async function addressIsContract(provider: PublicClient, address: Hex) {
   try {
     const code = await provider.getCode({ address, blockTag: 'pending' });
     return code !== undefined && code !== '0x';
@@ -54,11 +51,9 @@ export async function configureProvider(
   });
 
   const client = createPublicClient({
-  chain: chainId === 11155111 ? sepolia : mainnet,
-  transport: custom(ethereum)
-})
-
-  // provider.attachPlugin(new NonEvmCoinPlugin());
+    chain: chainId === 11155111 ? sepolia : mainnet,
+    transport: custom(ethereum),
+  });
 
   return client;
 }

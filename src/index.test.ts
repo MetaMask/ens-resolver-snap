@@ -135,7 +135,7 @@ describe('onNameLookup', () => {
         expect(result).toStrictEqual({
           resolvedAddresses: [
             {
-              resolvedAddress: '0x1111111254EEB25477B68fb85Ed929f73A960582',
+              resolvedAddress: '0x111111125421cA6dc452d289314280a0f8842A65',
               protocol: 'Ethereum Name Service',
               domainName: '1inch.eth',
             },
@@ -254,7 +254,7 @@ describe('onNameLookup', () => {
         });
       });
 
-      it.only('resolves an address on solana mainnet', async () => {
+      it('resolves an address on solana mainnet', async () => {
         const requestSpy = setupEthereumRequestMock(solanaAddressMock);
 
         const result = await onNameLookup({
