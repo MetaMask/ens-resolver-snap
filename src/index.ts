@@ -1,5 +1,5 @@
 import type { OnNameLookupHandler } from '@metamask/snaps-sdk';
-import { KnownCaipNamespace, parseCaipChainId } from '@metamask/utils';
+import { Hex, KnownCaipNamespace, parseCaipChainId } from '@metamask/utils';
 
 import { CAIP_CHAIN_ID_TO_SLIP_44_COIN_TYPE } from './constants';
 import { resolveAddress, resolveDomain } from './resolvers';
@@ -48,7 +48,7 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
     }
 
     if (address && namespace === KnownCaipNamespace.Eip155) {
-      const resolution = await resolveAddress(provider, address);
+      const resolution = await resolveAddress(provider, address as Hex);
 
       if (resolution) {
         return {

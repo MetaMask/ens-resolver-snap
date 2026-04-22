@@ -52,7 +52,7 @@ export async function resolveDomain(
     // ethers internally converts to coin type.
     const resolvedAddress = await client.getEnsAddress({
       name: normalizedDomain,
-      coinType: chainId && toCoinType(chainId),
+      coinType: chainId ? toCoinType(chainId) : undefined,
     });
 
     if (resolvedAddress) {
@@ -90,7 +90,7 @@ export async function resolveDomain(
 
   const bytes = await client.getEnsAddress({
     name: normalizedDomain,
-    coinType,
+    coinType: BigInt(coinType),
   });
 
   const resolvedAddress = bytes && decodeNonEvmAddress(coinType, bytes);
