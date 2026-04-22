@@ -15,7 +15,7 @@ import { CAIP_CHAIN_ID_TO_SLIP_44_COIN_TYPE } from './constants';
  */
 export class NonEvmCoinPlugin extends MulticoinProviderPlugin {
   /**
-   *
+   * Initializes the plugin with a name.
    */
   constructor() {
     super('Non-EVM Coin');
