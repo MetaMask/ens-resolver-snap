@@ -6,6 +6,26 @@ import { PROTOCOL_NAME, PROTOCOL_NAME_MAINNET } from './constants';
 import { addressIsContract } from './utils';
 
 /**
+ *
+ */
+type DomainResolution = {
+  /**
+   * The resolved address for the given domain.
+   */
+  resolvedAddress: string;
+
+  /**
+   * The protocol used for resolution (e.g., "Ethereum Name Service").
+   */
+  protocol: string;
+
+  /**
+   * The original domain name that was resolved.
+   */
+  domainName: string;
+};
+
+/**
  * Resolves the given domain to an Ethereum address.
  *
  * @param provider - The browser provider.
@@ -22,7 +42,7 @@ export async function resolveDomain(
   domain: string,
   coinType?: number,
   chainId?: number,
-) {
+): Promise<DomainResolution | null> {
   const ensResolver = await provider.getResolver(domain);
 
   if (!ensResolver) {
@@ -81,6 +101,21 @@ export async function resolveDomain(
 }
 
 /**
+ *
+ */
+type AddressResolution = {
+  /**
+   * The resolved ENS domain for the given address.
+   */
+  resolvedDomain: string;
+
+  /**
+   * The protocol used for resolution (e.g., "Ethereum Name Service").
+   */
+  protocol: string;
+};
+
+/**
  * Resolves the given address to an ENS domain.
  *
  * @param provider - The browser provider.
@@ -90,7 +125,7 @@ export async function resolveDomain(
 export async function resolveAddress(
   provider: BrowserProvider,
   address: string,
-) {
+): Promise<AddressResolution | null> {
   const resolvedDomain = await provider.lookupAddress(address);
 
   if (!resolvedDomain) {

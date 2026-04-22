@@ -1,25 +1,28 @@
 import { jest } from '@jest/globals';
-import type { Json } from '@metamask/utils';
+import type { Json, JsonRpcRequest } from '@metamask/utils';
 
 /**
  * Type definition for a request/response mock.
  */
 export type RequestMock = {
   /**
-   *
+   * The request to mock, including the method and optional parameters.
    */
   request: {
     /**
-     *
+     * The method being requested.
      */
     method: string;
+
     /**
-     *
+     * The parameters for the request, if any.
      */
     params?: Json;
   };
+
   /**
-   *
+   * The response to return when the request is made. Can be any
+   * JSON-serializable value.
    */
   response: Json;
 };
@@ -30,26 +33,22 @@ export type RequestMock = {
  * @param requestMocks - An array of request/response mocks.
  * @returns A Jest spy on the `ethereum.request` method.
  */
-export const setupEthereumRequestMock = (requestMocks?: RequestMock[]) => {
+export const setupEthereumRequestMock = (
+  requestMocks?: RequestMock[],
+): jest.SpiedClass<any> | jest.SpiedFunction<any> => {
   // @ts-expect-error - mocked global
   // eslint-disable-next-line no-restricted-globals
   global.ethereum = {
     /**
+     * The mocked request function.
      *
-     * @param request
-     * @param request.method
-     * @param request.params
+     * @param request - The request object.
+     * @param request.method - The method being requested.
+     * @param request.params - The parameters for the request.
+     * @returns The mocked response for the request, or null if no mock is
+     * found.
      */
-    request: async (request: {
-      /**
-       *
-       */
-      method: string;
-      /**
-       *
-       */
-      params?: unknown[] | Record<string, unknown>;
-    }) => {
+    request: async (request: JsonRpcRequest): Promise<Json> => {
       const { method, params } = request;
 
       const mock = requestMocks?.find(
@@ -57,6 +56,7 @@ export const setupEthereumRequestMock = (requestMocks?: RequestMock[]) => {
           item.request.method === method &&
           JSON.stringify(item.request.params) === JSON.stringify(params),
       );
+
       if (mock) {
         return Promise.resolve(mock.response);
       }
@@ -73,9 +73,10 @@ export const setupEthereumRequestMock = (requestMocks?: RequestMock[]) => {
 };
 
 /**
- *
+ * Reset the global `ethereum.request` mock by removing the mocked `ethereum`
+ * global.
  */
-export const resetEthereumRequestMock = () => {
+export const resetEthereumRequestMock = (): void => {
   // @ts-expect-error - removing mocked ethereum global
   // eslint-disable-next-line no-restricted-globals
   global.ethereum = undefined;

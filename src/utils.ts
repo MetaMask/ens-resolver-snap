@@ -5,6 +5,7 @@ import type { AbstractProvider, AddressLike } from 'ethers';
 
 import { ENS_SUPPORTED_CHAINS } from './constants';
 import { NonEvmCoinPlugin } from './plugins';
+
 /**
  * Tries to determine if an address is currently a contract.
  *
@@ -15,11 +16,11 @@ import { NonEvmCoinPlugin } from './plugins';
 export async function addressIsContract(
   provider: AbstractProvider,
   address: AddressLike,
-) {
+): Promise<boolean> {
   try {
     const code = await provider.getCode(address, 'pending');
     return code !== '0x';
-  } catch (error) {
+  } catch {
     console.error(
       'Unable to determine if resolved ENS address is a contract. Assuming it is and returning nothing.',
     );
@@ -33,7 +34,7 @@ export async function addressIsContract(
  * @param chainId - The chain ID in CAIP format.
  * @returns True if the chain is supported, false otherwise.
  */
-export function isSupportedChain(chainId: CaipChainId) {
+export function isSupportedChain(chainId: CaipChainId): boolean {
   return ENS_SUPPORTED_CHAINS.includes(chainId);
 }
 
@@ -44,7 +45,9 @@ export function isSupportedChain(chainId: CaipChainId) {
  * @param chainId - The chain ID in decimal format.
  * @returns The configured provider.
  */
-export async function configureProvider(chainId: number) {
+export async function configureProvider(
+  chainId: number,
+): Promise<BrowserProvider> {
   await ethereum.request({
     method: 'wallet_switchEthereumChain',
     params: [{ chainId: numberToHex(chainId) }],
