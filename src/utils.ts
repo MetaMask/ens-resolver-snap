@@ -13,7 +13,10 @@ import { ENS_SUPPORTED_CHAINS } from './constants';
  * @param address - The address to check.
  * @returns True if the given address has bytecode set or if an error occurs. False otherwise.
  */
-export async function addressIsContract(provider: PublicClient, address: Hex) {
+export async function addressIsContract(
+  provider: PublicClient,
+  address: Hex,
+): Promise<boolean> {
   try {
     const code = await provider.getCode({ address, blockTag: 'pending' });
     return code !== undefined && code !== '0x';
@@ -44,7 +47,7 @@ export function isSupportedChain(chainId: CaipChainId): boolean {
  */
 export async function configureProvider(
   chainId: number,
-): Promise<BrowserProvider> {
+): Promise<PublicClient> {
   await ethereum.request({
     method: 'wallet_switchEthereumChain',
     params: [{ chainId: numberToHex(chainId) }],

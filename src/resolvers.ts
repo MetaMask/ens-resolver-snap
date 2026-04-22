@@ -45,7 +45,7 @@ export async function resolveDomain(
   domain: string,
   coinType?: number,
   chainId?: number,
-): Promise<DomainResolution | null>  {
+): Promise<DomainResolution | null> {
   const normalizedDomain = normalize(domain);
 
   if (namespace === KnownCaipNamespace.Eip155) {
