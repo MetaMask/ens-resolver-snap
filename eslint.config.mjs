@@ -41,6 +41,11 @@ const config = createConfig([
     files: ['**/*.test.ts', '**/*.test.js'],
     extends: [jest, nodejs],
   },
+
+  {
+    files: ['snap.config.ts'],
+    extends: [nodejs],
+  },
 ]);
 
 export default config;
