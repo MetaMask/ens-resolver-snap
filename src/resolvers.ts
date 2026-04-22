@@ -7,6 +7,7 @@ import { addressIsContract } from './utils';
 
 /**
  * Resolves the given domain to an Ethereum address.
+ *
  * @param provider - The browser provider.
  * @param namespace - The CAIP namespace.
  * @param domain - The ENS domain to resolve.
@@ -81,6 +82,7 @@ export async function resolveDomain(
 
 /**
  * Resolves the given address to an ENS domain.
+ *
  * @param provider - The browser provider.
  * @param address - The address to resolve.
  * @returns The resolved domain or null if not found.

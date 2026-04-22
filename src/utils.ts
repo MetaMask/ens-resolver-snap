@@ -1,15 +1,13 @@
 import type { CaipChainId } from '@metamask/utils';
 import { numberToHex } from '@metamask/utils';
-import {
-  BrowserProvider,
-  type AbstractProvider,
-  type AddressLike,
-} from 'ethers';
+import { BrowserProvider } from 'ethers';
+import type { AbstractProvider, AddressLike } from 'ethers';
 
 import { ENS_SUPPORTED_CHAINS } from './constants';
 import { NonEvmCoinPlugin } from './plugins';
 /**
  * Tries to determine if an address is currently a contract.
+ *
  * @param provider - The provider for the network.
  * @param address - The address to check.
  * @returns True if the given address has bytecode set or if an error occurs. False otherwise.
@@ -31,6 +29,7 @@ export async function addressIsContract(
 
 /**
  * Checks if the given chain ID is supported by ENS.
+ *
  * @param chainId - The chain ID in CAIP format.
  * @returns True if the chain is supported, false otherwise.
  */
@@ -41,6 +40,7 @@ export function isSupportedChain(chainId: CaipChainId) {
 /**
  * Configures and returns a provider for the given chain ID.
  * Defaults to ethereum mainnet if the chain is unsupported.
+ *
  * @param chainId - The chain ID in decimal format.
  * @returns The configured provider.
  */

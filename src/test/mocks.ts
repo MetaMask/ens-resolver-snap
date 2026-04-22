@@ -5,15 +5,28 @@ import type { Json } from '@metamask/utils';
  * Type definition for a request/response mock.
  */
 export type RequestMock = {
+  /**
+   *
+   */
   request: {
+    /**
+     *
+     */
     method: string;
+    /**
+     *
+     */
     params?: Json;
   };
+  /**
+   *
+   */
   response: Json;
 };
 
 /**
  * Sets up a mock for the global `ethereum.request` method.
+ *
  * @param requestMocks - An array of request/response mocks.
  * @returns A Jest spy on the `ethereum.request` method.
  */
@@ -21,8 +34,20 @@ export const setupEthereumRequestMock = (requestMocks?: RequestMock[]) => {
   // @ts-expect-error - mocked global
   // eslint-disable-next-line no-restricted-globals
   global.ethereum = {
+    /**
+     *
+     * @param request
+     * @param request.method
+     * @param request.params
+     */
     request: async (request: {
+      /**
+       *
+       */
       method: string;
+      /**
+       *
+       */
       params?: unknown[] | Record<string, unknown>;
     }) => {
       const { method, params } = request;
@@ -47,6 +72,9 @@ export const setupEthereumRequestMock = (requestMocks?: RequestMock[]) => {
   return requestSpy;
 };
 
+/**
+ *
+ */
 export const resetEthereumRequestMock = () => {
   // @ts-expect-error - removing mocked ethereum global
   // eslint-disable-next-line no-restricted-globals

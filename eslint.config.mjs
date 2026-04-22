@@ -1,7 +1,7 @@
 import base, { createConfig } from '@metamask/eslint-config';
+import jest from '@metamask/eslint-config-jest';
 import nodejs from '@metamask/eslint-config-nodejs';
 import typescript from '@metamask/eslint-config-typescript';
-import jest from '@metamask/eslint-config-jest';
 
 const config = createConfig([
   {
