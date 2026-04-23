@@ -1,12 +1,15 @@
-import type { CaipNamespace } from '@metamask/utils';
+import type { CaipNamespace, Hex } from '@metamask/utils';
 import { KnownCaipNamespace } from '@metamask/utils';
-import type { BrowserProvider } from 'ethers';
+import type { PublicClient } from 'viem';
+import { getAddress, toCoinType } from 'viem';
+import { normalize } from 'viem/ens';
 
 import { PROTOCOL_NAME, PROTOCOL_NAME_MAINNET } from './constants';
+import { decodeNonEvmAddress } from './decoding';
 import { addressIsContract } from './utils';
 
 /**
- *
+ * Return value for `resolveDomain`.
  */
 type DomainResolution = {
   /**
@@ -28,7 +31,7 @@ type DomainResolution = {
 /**
  * Resolves the given domain to an Ethereum address.
  *
- * @param provider - The browser provider.
+ * @param client - The viem client.
  * @param namespace - The CAIP namespace.
  * @param domain - The ENS domain to resolve.
  * @param coinType - The SLIP-44 coin type (default is 60 for Ethereum).
@@ -37,25 +40,23 @@ type DomainResolution = {
  * @returns The resolved address or null if not found.
  */
 export async function resolveDomain(
-  provider: BrowserProvider,
+  client: PublicClient,
   namespace: CaipNamespace,
   domain: string,
   coinType?: number,
   chainId?: number,
 ): Promise<DomainResolution | null> {
-  const ensResolver = await provider.getResolver(domain);
-
-  if (!ensResolver) {
-    return null;
-  }
+  const normalizedDomain = normalize(domain);
 
   if (namespace === KnownCaipNamespace.Eip155) {
-    // ethers internally converts to coin type.
-    const resolvedAddress = await ensResolver.getAddress(chainId);
+    const resolvedAddress = await client.getEnsAddress({
+      name: normalizedDomain,
+      coinType: chainId ? toCoinType(chainId) : undefined,
+    });
 
     if (resolvedAddress) {
       return {
-        resolvedAddress,
+        resolvedAddress: getAddress(resolvedAddress),
         protocol: PROTOCOL_NAME,
         domainName: domain,
       };
@@ -66,17 +67,16 @@ export async function resolveDomain(
       return null;
     }
 
-    const mainnetAddress = await ensResolver.getAddress();
+    const mainnetAddress = await client.getEnsAddress({
+      name: normalizedDomain,
+    });
 
-    if (
-      !mainnetAddress ||
-      (await addressIsContract(provider, mainnetAddress))
-    ) {
+    if (!mainnetAddress || (await addressIsContract(client, mainnetAddress))) {
       return null;
     }
 
     return {
-      resolvedAddress: mainnetAddress,
+      resolvedAddress: getAddress(mainnetAddress),
       protocol: PROTOCOL_NAME_MAINNET,
       domainName: domain,
     };
@@ -87,7 +87,12 @@ export async function resolveDomain(
     return null;
   }
 
-  const resolvedAddress = await ensResolver.getAddress(coinType);
+  const bytes = await client.getEnsAddress({
+    name: normalizedDomain,
+    coinType: BigInt(coinType),
+  });
+
+  const resolvedAddress = bytes && decodeNonEvmAddress(coinType, bytes);
 
   if (!resolvedAddress) {
     return null;
@@ -101,7 +106,7 @@ export async function resolveDomain(
 }
 
 /**
- *
+ * Return value for `resolveAddress`.
  */
 type AddressResolution = {
   /**
@@ -118,15 +123,15 @@ type AddressResolution = {
 /**
  * Resolves the given address to an ENS domain.
  *
- * @param provider - The browser provider.
+ * @param client - The viem client.
  * @param address - The address to resolve.
  * @returns The resolved domain or null if not found.
  */
 export async function resolveAddress(
-  provider: BrowserProvider,
-  address: string,
+  client: PublicClient,
+  address: Hex,
 ): Promise<AddressResolution | null> {
-  const resolvedDomain = await provider.lookupAddress(address);
+  const resolvedDomain = await client.getEnsName({ address });
 
   if (!resolvedDomain) {
     return null;

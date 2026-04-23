@@ -1,10 +1,10 @@
-import type { CaipChainId } from '@metamask/utils';
+import type { CaipChainId, Hex } from '@metamask/utils';
 import { numberToHex } from '@metamask/utils';
-import { BrowserProvider } from 'ethers';
-import type { AbstractProvider, AddressLike } from 'ethers';
+import type { PublicClient } from 'viem';
+import { createPublicClient, custom } from 'viem';
+import { mainnet, sepolia } from 'viem/chains';
 
 import { ENS_SUPPORTED_CHAINS } from './constants';
-import { NonEvmCoinPlugin } from './plugins';
 
 /**
  * Tries to determine if an address is currently a contract.
@@ -14,12 +14,12 @@ import { NonEvmCoinPlugin } from './plugins';
  * @returns True if the given address has bytecode set or if an error occurs. False otherwise.
  */
 export async function addressIsContract(
-  provider: AbstractProvider,
-  address: AddressLike,
+  provider: PublicClient,
+  address: Hex,
 ): Promise<boolean> {
   try {
-    const code = await provider.getCode(address, 'pending');
-    return code !== '0x';
+    const code = await provider.getCode({ address, blockTag: 'pending' });
+    return code !== undefined && code !== '0x';
   } catch {
     console.error(
       'Unable to determine if resolved ENS address is a contract. Assuming it is and returning nothing.',
@@ -47,17 +47,16 @@ export function isSupportedChain(chainId: CaipChainId): boolean {
  */
 export async function configureProvider(
   chainId: number,
-): Promise<BrowserProvider> {
+): Promise<PublicClient> {
   await ethereum.request({
     method: 'wallet_switchEthereumChain',
     params: [{ chainId: numberToHex(chainId) }],
   });
 
-  const provider = new BrowserProvider(ethereum, chainId, {
-    staticNetwork: true,
+  const client = createPublicClient({
+    chain: chainId === 11155111 ? sepolia : mainnet,
+    transport: custom(ethereum),
   });
 
-  provider.attachPlugin(new NonEvmCoinPlugin());
-
-  return provider;
+  return client;
 }
