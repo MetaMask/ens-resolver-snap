@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0]
+
+### Uncategorized
+
+- feat: Use `viem` instead of `ethers` ([#85](https://github.com/MetaMask/ens-resolver-snap/pull/85))
+- chore(dev-deps): Bump TypeScript to `~6.0.3` ([#88](https://github.com/MetaMask/ens-resolver-snap/pull/88))
+- chore: Bump ESLint to v9 ([#87](https://github.com/MetaMask/ens-resolver-snap/pull/87))
+
 ## [1.1.0]
 
 ### Changed
@@ -60,7 +68,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implement ENS resolver snap (based on snap monorepo
   template) ([#1](https://github.com/MetaMask/ens-resolver-snap/pull/1))
 
-[Unreleased]: https://github.com/MetaMask/ens-resolver-snap/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/MetaMask/ens-resolver-snap/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/MetaMask/ens-resolver-snap/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/MetaMask/ens-resolver-snap/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.4...v1.0.0
 [0.1.4]: https://github.com/MetaMask/ens-resolver-snap/compare/v0.1.3...v0.1.4
