@@ -9,7 +9,7 @@ import { decodeNonEvmAddress } from './decoding';
 import { addressIsContract } from './utils';
 
 /**
- *
+ * Return value for `resolveDomain`.
  */
 type DomainResolution = {
   /**
@@ -49,7 +49,6 @@ export async function resolveDomain(
   const normalizedDomain = normalize(domain);
 
   if (namespace === KnownCaipNamespace.Eip155) {
-    // ethers internally converts to coin type.
     const resolvedAddress = await client.getEnsAddress({
       name: normalizedDomain,
       coinType: chainId ? toCoinType(chainId) : undefined,
@@ -107,7 +106,7 @@ export async function resolveDomain(
 }
 
 /**
- *
+ * Return value for `resolveAddress`.
  */
 type AddressResolution = {
   /**
