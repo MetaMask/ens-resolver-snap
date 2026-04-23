@@ -9,11 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.2.0]
 
-### Uncategorized
+### Added
 
-- feat: Use `viem` instead of `ethers` ([#85](https://github.com/MetaMask/ens-resolver-snap/pull/85))
-- chore(dev-deps): Bump TypeScript to `~6.0.3` ([#88](https://github.com/MetaMask/ens-resolver-snap/pull/88))
-- chore: Bump ESLint to v9 ([#87](https://github.com/MetaMask/ens-resolver-snap/pull/87))
+- Support ENS v2 ([#85](https://github.com/MetaMask/ens-resolver-snap/pull/85))
+  - To support this, we now use `viem` instead of `ethers`
 
 ## [1.1.0]
 
