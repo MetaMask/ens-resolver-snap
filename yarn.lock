@@ -1617,8 +1617,8 @@ __metadata:
   linkType: hard
 
 "@metamask/snaps-rpc-methods@npm:^13.5.0, @metamask/snaps-rpc-methods@npm:^13.5.2":
-  version: 13.5.2
-  resolution: "@metamask/snaps-rpc-methods@npm:13.5.2"
+  version: 13.5.3
+  resolution: "@metamask/snaps-rpc-methods@npm:13.5.3"
   dependencies:
     "@metamask/key-tree": ^10.1.1
     "@metamask/permission-controller": ^11.0.6
@@ -1628,7 +1628,7 @@ __metadata:
     "@metamask/superstruct": ^3.2.1
     "@metamask/utils": ^11.8.1
     "@noble/hashes": ^1.7.1
-  checksum: 3a23a7cc8e172641f9842dbddceedd5fccb01d28ae11d0027f80187bb25462bba68186572d4abb586edd594711840e7eb285784f17be356f288603caa44a2673
+  checksum: 57598d48989905c6f5a742331d6d8f157852532a0598bd817c259f446ab03804390ad18bf5770b947595cfebe2bd6c2553d30ca16d9f18a880b8539555d60747
   languageName: node
   linkType: hard
 
