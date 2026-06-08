@@ -24,8 +24,9 @@ jobs:
         uses: MetaMask/action-checkout-and-setup@v3
         with:
           is-high-risk-environment: false
+      - run: yarn build
       - name: Cache snap build
-        uses: actions/cache@v4
+        uses: actions/cache/save@v4
         with:
           path: ./dist
           key: snap-${{ runner.os }}-${{ github.sha }}
@@ -68,7 +69,7 @@ jobs:
         with:
           is-high-risk-environment: false
       - name: Restore snap build cache
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: ./dist
           key: snap-${{ runner.os }}-${{ github.sha }}
