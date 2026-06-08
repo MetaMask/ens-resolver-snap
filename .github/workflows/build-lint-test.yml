@@ -8,14 +8,11 @@ jobs:
     name: Prepare
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+      - name: Checkout and setup environment
+        uses: MetaMask/action-checkout-and-setup@v3
         with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
-      - name: Install Yarn dependencies
-        run: yarn --immutable
+          is-high-risk-environment: false
+          cache-node-modules: true
 
   build:
     name: Build
@@ -23,14 +20,10 @@ jobs:
     needs:
       - prepare
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+      - name: Checkout and setup environment
+        uses: MetaMask/action-checkout-and-setup@v3
         with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
-      - run: yarn --immutable --immutable-cache
-      - run: yarn build
+          is-high-risk-environment: false
       - name: Cache snap build
         uses: actions/cache@v4
         with:
@@ -50,13 +43,10 @@ jobs:
     needs:
       - prepare
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+      - name: Checkout and setup environment
+        uses: MetaMask/action-checkout-and-setup@v3
         with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
-      - run: yarn --immutable --immutable-cache
+          is-high-risk-environment: false
       - run: yarn lint
       - name: Require clean working directory
         shell: bash
@@ -73,18 +63,15 @@ jobs:
       - prepare
       - build
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+      - name: Checkout and setup environment
+        uses: MetaMask/action-checkout-and-setup@v3
         with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
+          is-high-risk-environment: false
       - name: Restore snap build cache
         uses: actions/cache@v4
         with:
           path: ./dist
           key: snap-${{ runner.os }}-${{ github.sha }}
-      - run: yarn install --immutable
       - name: Run e2e tests
         run: yarn test
       - name: Require clean working directory
